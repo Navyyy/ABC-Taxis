@@ -1,0 +1,91 @@
+html{
+    background-image:url('../pictures/backgroundabc.jpg');
+}
+
+body{
+    background-color: transparent;
+    margin:0 auto;
+    width:auto;
+    margin-top:5px;
+    text-align:center;
+}
+
+table{
+	border-collapse:collapse;
+	width:100%;
+}
+
+th,td{
+	border:1px solid #333;
+	text-align:center;
+}
+
+.date-select{
+	margin:0 auto;
+	margin-top:10px;
+	width:250px;
+}
+
+#body-mobile{
+	width:320px;
+	margin:0 auto;
+}
+
+.a-yellow{
+	background-color:yellow;
+	color:black;
+}
+.a-black{
+	background-color:#333;
+	color:white;
+}
+.a-red{
+	background-color:red;
+	color:black;
+}
+.v-white{
+	color:#00FF00;
+	background-color: transparent;
+}
+.m-white{
+	color:red;
+	background-color: transparent;
+}
+.f-white{
+	color:blue;
+	background-color: transparent;
+}
+.left{
+	background-color:purple;
+}
+.empty{
+	background-color:transparent;
+	color:black;
+}
+.b-white{
+	background-color:transparent;
+	color:black;
+}
+.b-black{
+	background-color:#333;
+	color:white;
+}
+.l-white{
+	background-color:transparent;
+	color:black;
+}
+
+.c-white{
+	color:blue;
+	background-color:white;
+}
+
+.c-black{
+	background-color:black;
+	color:#00A0E0;
+}
+
+.separator{
+	background-color:#00A0E0;
+	height:10px; 	
+}

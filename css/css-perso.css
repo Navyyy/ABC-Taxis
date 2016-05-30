@@ -1,0 +1,330 @@
+/*
+Author : Yvan Cochet
+Date : 03.02.2016
+Summary : CSS for ABC taxis'planning website
+*/
+
+html{
+    background-image:url('../pictures/backgroundabc.jpg');
+}
+
+body{
+    background-color: transparent;
+    margin:0 auto;
+    width:1400px;
+    margin-top:5px;
+}
+
+th,td{
+	border:1px solid #333;
+	text-align:center;
+}
+
+table{
+	border-collapse:collapse;
+	width:100%;
+}
+
+/*ID*/
+#button-save
+{
+	background-color:#00A0E0;
+	width:100%;
+	height:100%;
+	border:2px solid #333;
+	font-size:18px;
+	font-weight:bolder;
+	border-radius:10px;
+	transition:0.5s;
+}
+#button-save:hover{
+	background-color:#40E60A;
+}
+#car-planning-header-name{
+	width:165px;
+}
+
+#car-planning-legend{
+	font-size:13px;
+	padding:4px;
+}
+
+#add-driver-dropdown{
+	width:250px;
+	padding:15px;
+}
+
+#index-body{
+	width:320px;
+	text-align:center;
+}
+
+#index-header{    
+	padding-bottom:10px;
+	margin-bottom:10px;   
+	border-bottom:2px solid #333; 
+}
+
+#index-password{
+	display:inline-block;
+	width:200px;
+}
+
+/*CLASS*/
+
+.car-planning-day-name{
+	font-variant:small-caps;
+	font-weight:normal;
+	font-family: "Gotham-Book", Arial, sans-serif;
+	font-size:10px;
+	width:33px;
+	text-align:center;
+}
+.separation{
+	background-color:#222222;
+}
+.car-planning-week-separator{
+	background-color:#00A0E0;
+	width:10px;
+}
+.car-planning-header{
+	font-weight:bolder;
+	text-align:center;
+	font-size:18px;
+}
+.car-planning-day-number{
+	text-align:center;
+	font-weight:bolder;
+	font-size:18px;
+}
+
+.car-planning-name-list{
+	font-weight:normal;
+	display:block;
+	border:none;
+	background-color:transparent;
+	-webkit-appearance:none;
+	-moz-appearance:none;
+	width:100%;
+	height:100%;
+}
+
+.car-planning-task{
+	font-weight:bold;
+	display:block;
+	border:1px solid transparent;
+	background-color: transparent;
+	-webkit-appearance:none;
+	-moz-appearance:none;
+	width:100%;
+	height:100%;
+	padding-left:7px;
+}
+.a-yellow{
+	background-color:yellow;
+	color:black;
+}
+.a-black{
+	background-color:#333;
+	color:white;
+}
+.a-red{
+	background-color:red;
+	color:black;
+}
+.v-white{
+	color:#00FF00;
+	background-color: white;
+}
+.m-white{
+	color:red;
+	background-color: white;
+}
+.f-white{
+	color:blue;
+	background-color: white;
+}
+.left{
+	background-color:purple;
+	color:#333;
+}
+.empty{
+	background-color:white;
+	color:black;
+}
+.b-white{
+	background-color:white;
+	color:black;
+}
+.b-black{
+	background-color:#333;
+	color:white;
+}
+.l-white{
+	background-color:white;
+	color:black;
+}
+
+.c-white{
+	color:blue;
+	background-color:white;
+}
+
+.c-black{
+	background-color:black;
+	color:#00A0E0;
+}
+
+.span{
+	border:1px solid black;
+	padding-left:2px;
+	padding-right:2px;
+}
+
+.date-select{
+	width:150px;
+	float:right;
+}
+
+.btn-primary{
+	background-color:#00A0E0;
+	border-color:#00A0E0;
+}
+
+.btn-primary:hover{
+	background-color:#008DC5;
+	border-color:#008DC5;
+}
+
+.transparent{
+	background-color:transparent;
+}
+
+.driName-driver{
+	text-align:left;
+	width:15%;
+	font-weight:normal;
+}
+
+.driName{
+	width:15%;
+}
+
+.th-button{
+	width:5%;
+}
+
+.btn-round:hover{
+	animation:turn 0.5s;
+	border-radius:100%;
+}
+
+.table th, td{
+	border:none;
+	text-align:left;
+	font-size:15px;
+}
+
+@keyframes turn{
+	0%{
+		transform: rotate(0deg);
+	}
+	100%{
+		transform: rotate(360deg);
+	}
+}
+
+
+@media print{
+
+	img{
+		display:none;
+	}
+
+	body{
+		background-image:none;
+	}
+
+	nav{
+		display:none;
+	}
+
+	.a-yellow{
+		background-color:yellow !important;
+		color:black !important;
+	}
+	.a-black{
+		background-color:#333 !important;
+		color:white !important;
+	}
+	.a-red{
+		background-color:red !important;
+		color:black !important;
+	}
+	.v-white{
+		color:#00FF00 !important;
+		background-color: white !important;
+	}
+	.m-white{
+		color:red !important;
+		background-color: white !important;
+	}
+	.f-white{
+		color:blue !important;
+		background-color: white !important;
+	}
+	.left{
+		background-color:purple !important;
+		color:#333 !important;
+	}
+	.empty{
+		background-color:white !important;
+		color:black !important;
+	}
+	.b-white{
+		background-color:white !important;
+		color:black !important;
+	}
+	.b-black{
+		background-color:#333 !important;
+		color:white !important;
+	}
+	.l-white{
+		background-color:white !important;
+		color:black !important;
+	}
+
+	.car-planning-week-separator{
+		background-color:#00A0E0 !important;
+	}
+
+	.separation{
+		background-color:#222222 !important;
+	}
+
+	.date-select{
+		display:none;
+	}
+
+	.th-button{
+		display:none;
+	}
+
+	#car-planning-header-name{
+		
+		width:15%;
+	}
+
+	#button-save{
+		display:none;
+	}
+
+	#car-planning-legend{
+		display:none;
+	}
+
+	@page{
+		margin:4mm;
+		size:landscape;
+	}
+}

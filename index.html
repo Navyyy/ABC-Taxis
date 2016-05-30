@@ -1,0 +1,48 @@
+<!--
+Author : Yvan Cochet
+Date : 03.02.2016
+Summary : ABC taxis'planning home page
+-->
+
+<!DOCTYPE html>
+<html>
+
+    <head lang="fr">
+        <!--Links for CSS, javascript, bootstrap-->
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/css-perso.css" rel="stylesheet">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/js-perso.js"></script>
+        <title>Planning chauffeurs | ABC Taxis Cochet SA</title>
+
+		<link rel="icon" href="http://www.abctaxis.ch/favicon.png">
+
+    </head>
+
+    <body id="index-body">
+
+    	<div id="index-header">
+    		<img src="./pictures/logo-abc.png" alt="logo ABC Taxi"/>
+    	</div>
+
+    	<form action="./pages/login.php" method="post">
+
+    		<input name="password" type="password" class="form-control" id="index-password" placeholder="Mot de passe"/>
+    		<button type="submit" class="btn btn-default">Login</button>
+    		</br></br>
+    		Version :
+    		<label class="radio-inline">
+  				<input type="radio" name="version" value="mobile">Mobile
+			</label>
+			<label class="radio-inline">
+			  	<input type="radio" name="version" value="computer" checked="checked">Ordinateur
+			</label>
+
+    	</form>
+    	
+
+    </body>
+</html>
