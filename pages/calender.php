@@ -69,6 +69,8 @@ if(isset($_SESSION['login']) AND $_SESSION['login'] == 'admin')
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
                         <li class="active"><a href="#"><span class="glyphicon glyphicon-th-list">&nbsp;</span>Planning chauffeurs</a></li>
+                        <li><a href="./list-car.php"><span class="glyphicon glyphicon-road">&nbsp;</span>Liste véhicules</a></li>
+                        <li><a href="./calender-car.php"><span class="glyphicon glyphicon-calendar">&nbsp;</span>Planning véhicules</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
