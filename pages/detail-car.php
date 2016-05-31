@@ -276,8 +276,9 @@ if(isset($_SESSION['login']))
                         <thead>
                             <tr>
                                 <th style="width:15%">Date</th>
-                                <th style="width:65%">Description</th>
+                                <th style="width:55%">Description</th>
                                 <th style="width:20%">Posté par</th>
+                                <th style="width:10%">Action</th>
                             </tr>
                         </thead>
 
@@ -289,6 +290,10 @@ if(isset($_SESSION['login']))
                                     echo '<td>'.$note['notDate'].'</td>';
                                     echo '<td>'.str_replace("\n","<br/>",$note['notDescription']).'</td>';
                                     echo '<td>'.$note['driName'].'</td>';
+                                    echo '<td>';
+                                    echo '<a><button type="button" class="btn btn-info btn-xs btn-round"><span class="glyphicon glyphicon-ok"></span></button></a>';
+                                    echo ' <a><button type="button" class="btn btn-danger btn-xs btn-round"><span class="glyphicon glyphicon-trash"></span></button></a>';
+                                    echo '</td>';
                                 echo '</tr>';
                             }
 
