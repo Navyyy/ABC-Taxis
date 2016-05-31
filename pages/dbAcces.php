@@ -608,56 +608,26 @@ class dbAcces
 
 	//FUNCTION HEADER
     // <summary>
-    // Write the list of the cars
+    // Get the list of the cars
     // </summary>
+    // <return>Return a tab of the cars</return>
 	public function getAllCar()
 	{
 		$reqCar = $this->db->query('SELECT idCar, carRegistration, carBrand, carSeats FROM t_car');
+
+		$tabCar = $reqCar->fetchAll();
+
+		return $tabCar;
 		
-		while($car = $reqCar->fetch())
-		{
-            echo '<tr>';
-	            echo '<td>'.$car['idCar'].'</td>';
-	            echo '<td>'.$car['carRegistration'].'</td>';
-	            echo '<td>'.$car['carBrand'].'</td>';
-	            echo '<td>'.$car['carSeats'].'</td>';
-
-	            echo '<td>';
-
-		            //Chekc if th'eres a note and write something if there's one
-		            $note = $this->checkNote($car['idCar']);
-		            if(count($note) !== 0)
-		            {
-		            	echo '<span class="color-red">Remarque à lire</span>';
-		            }
-		            else
-		            {
-		            	echo '-';
-		            }
-
-	            echo '</td>';
-
-	            //Write the action buttons
-	            echo '<td><a href="./detail-car.php?idCar='.$car['idCar'].'"><button type="button" class="btn btn-info btn-xs btn-round"><span class="glyphicon glyphicon-info-sign"></span></button></a> ';
-
-	            //Write delete button only if we are logged as admin
-	            if($_SESSION['login'] == 'admin')
-	            {
-	            	echo ' <a><button type="button" class="btn btn-danger btn-xs btn-round"><span class="glyphicon glyphicon-trash"></span></button></a>';
-	            }
-
-            echo '</td></tr>';
-        }
-
 	}
 
 	//FUNCTION HEADER
     // <summary>
-    // Check if the car has a note or not
+    // Get the car notes
     // </summary>
     //<var name="idCar">id of the car to check</var>
-    /// <return>Return the note</return>
-	public function checkNote($idCar)
+    /// <return>Return the notes</return>
+	public function getNotes($idCar)
 	{
 		$reqCheckNote = $this->db->prepare('SELECT notDescription, notDate, driName FROM t_note INNER JOIN t_driver ON fkDriver = idDriver WHERE fkCar = :idCar');
 		$reqCheckNote->execute(array(
@@ -668,6 +638,66 @@ class dbAcces
 		$reqCheckNote->closeCursor();
 
 		return $tabCheckNote;
+	}
+
+	//FUNCTION HEADER
+    // <summary>
+    // Get the class of the car
+    // </summary>
+    //<var name="idCar">id of the car to check</var>
+    /// <return>Return the class of the vehicule/return>
+	public function getClass($idCar)
+	{
+		$reqClass = $this->db->prepare('SELECT claName FROM t_car INNER JOIN t_class ON fkClass = idClass WHERE idCar = :idCar');
+		$reqClass->execute(array(
+			'idCar' => $idCar
+			));
+		$tabClass = $reqClass->fetchAll();
+
+		return $tabClass;
+	}
+
+
+	//FUNCTION HEADER
+    // <summary>
+    // Get the informations about one car
+    // </summary>
+    //<var name="idCar">id of the car to check</var>
+    /// <return>Return the info of the car</return>
+	public function getCarInfo($idCar)
+	{
+		$reqCar = $this->db->prepare('SELECT * FROM t_car INNER JOIN t_class ON fkClass = idClass WHERE idCar = :idCar');
+		$reqCar->execute(array(
+			'idCar' => $idCar
+			));
+
+		$tabCar = $reqCar->fetchAll();
+
+		return $tabCar;
+	}
+
+	//FUNCTION HEADER
+    // <summary>
+    // Get tall the classes
+    // </summary>
+    /// <return>Return a table with all the classes</return>
+	public function getAllClass()
+	{
+		$reqClass = $this->db->query('SELECT * FROM t_class');
+		$tabClass = $reqClass->fetchAll();
+
+		return $tabClass;
+	}
+
+	//FUNCTION HEADER
+    // <summary>
+    // Get aéé the services of a car
+    // </summary>
+    /// <return>Return table with all services</return>
+	public function getServices($idCar)
+	{
+		
+
 	}
 
 }

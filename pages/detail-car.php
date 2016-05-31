@@ -61,6 +61,150 @@ if(isset($_SESSION['login']))
             </nav>
             <!--____________________/NAVBAR__________________________-->
 
+            <!--__________________Detail of the car_________________-->
+
+            <?php
+
+            //Get the car informations
+            $tabCar = $function->getCarInfo($_GET['idCar']);
+            $tabNote = $function->getNotes($_GET['idCar']);
+
+            //Get all the car classes
+            $tabClass = $function->getAllClass();
+
+            //Get all services made to the car
+            $tabServices = $function->getServices($_GET['idCar']);
+
+            //Check if the user is allowed to modify the car or not
+            $allowed = '';
+            if(isset($_SESSION['login']) AND $_SESSION['login'] == 'driver')
+            {
+                $allowed = 'readOnly';
+            }
+
+            ?>
+
+            <!--__________Form with car info_____________-->
+
+            <div class="panel col-sm-offset col-sm-6">
+
+                <legend><h2>Information sur le véhicule</h2></legend>
+
+                <div class="panel-body">
+
+                    <form class="" method="POST" action="#">
+
+                        <!--______Registration_____-->
+                        <div class="form-group">
+
+                            <label for="registration">Immatriculation :</label>
+                            <?php
+                            echo '<input '.$allowed.' name="registration" type="text" class="form-control" placeholder="Immatriculation" value="'.$tabCar[0]['carRegistration'].'">';
+                            ?>
+
+                        </div>
+
+                        <!--______Class_____-->
+                        <div class="form-group">
+
+                            <label for="class">Classe :</label>
+                            <?php
+                            echo '<select'.$allowed.' class="form-control">';
+                            ?>
+                                <?php
+                                    echo '<option value"'.$tabCar[0]['idClass'].'">'.$tabCar[0]['claName'].'</option>';
+
+                                    foreach($tabClass as $class)
+                                    {
+                                        echo '<option value"'.$class['idClass'].'">'.$class['claName'].'</option>';
+                                    }
+
+                                ?>
+                            </select>
+
+                        </div>
+
+                        <!--______Brand_____-->
+                        <div class="form-group">
+
+                            <label for="brand">Marque :</label>
+                            <?php
+                            echo '<input '.$allowed.' name="brand" type="text" class="form-control" placeholder="Marque" value="'.$tabCar[0]['carBrand'].'">';
+                            ?>
+
+                        </div>
+
+                        <!--______Model_____-->
+                        <div class="form-group">
+
+                            <label for="model">Modèle :</label>
+                            <?php
+                            echo '<input '.$allowed.' name="model" type="text" class="form-control" placeholder="Modèle" value="'.$tabCar[0]['carModel'].'">';
+                            ?>
+
+                        </div>
+
+                        <!--______Year_____-->
+                        <div class="form-group">
+
+                            <label for="year">Année :</label>
+                            <?php
+                            echo '<input '.$allowed.' name="year" type="number" class="form-control" placeholder="Année" value="'.$tabCar[0]['carYear'].'">';
+                            ?>
+
+                        </div>
+
+                        <!--______NbSeats_____-->
+                        <div class="form-group">
+
+                            <label for="seats">Nombre de sièges :</label>
+                            <?php
+                            echo '<input '.$allowed.' name="seats" type="number" class="form-control" placeholder="Nombre de sièges" value="'.$tabCar[0]['carSeats'].'">';
+                            ?>
+
+                        </div>
+
+                        <!--Display done button only if logged as admin-->
+                        <?php
+                        if(isset($_SESSION['login']) AND $_SESSION['login'] == 'admin')
+                        {
+                            echo '<button type="submit" class="btn btn-primary btn-block">Appliquer les modifications</button>';
+                        }
+
+                        ?>
+
+                    </form>
+
+                </div>
+            </div>
+
+            <!--__________/Form with car info_____________-->
+
+            <!--__________Services made_____________-->
+            <div class="panel col-sm-offset-1 col-sm-5">
+
+                <legend><h2>Liste des services effectués</h2></legend>
+
+                <div class="panel-body">
+                    
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                    
+                </div>
+            </div>
+            <!--__________/Services made_____________-->
+
+
+            <!--_________________/Detail of the car_________________-->
+
         </body>
     </html> 
     <?php

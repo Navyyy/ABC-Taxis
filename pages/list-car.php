@@ -72,6 +72,7 @@ if(isset($_SESSION['login']))
                             <th>Immatriculation</th>
                             <th>Marque</th>
                             <th>Sièges</th>
+                            <th>Classe</th>
                             <th>Info</th>
                             <th>Actions</td>
                         </tr>
@@ -81,6 +82,46 @@ if(isset($_SESSION['login']))
                         <?php
                         //Function to write all the cars
                         $carTab = $function->getAllCar();
+
+                        //Loop that run all carTab table and write all cars
+                        foreach($carTab as $car)
+                        {
+                            echo '<tr>';
+                                echo '<td>'.$car['idCar'].'</td>';
+                                echo '<td>'.$car['carRegistration'].'</td>';
+                                echo '<td>'.$car['carBrand'].'</td>';
+                                echo '<td>'.$car['carSeats'].'</td>';
+
+                                //Get the class of the car
+                                $class = $function->getClass($car['idCar']);
+                                echo '<td>'.$class[0]['claName'].'</td>';
+
+                                echo '<td>';
+
+                                    //Chekc if there's a note and write something if there's one
+                                    $note = $function->getNotes($car['idCar']);
+                                    if(count($note) !== 0)
+                                    {
+                                        echo '<span class="color-red">Remarque à lire</span>';
+                                    }
+                                    else
+                                    {
+                                        echo '-';
+                                    }
+
+                                echo '</td>';
+
+                                //Write the action buttons
+                                echo '<td><a href="./detail-car.php?idCar='.$car['idCar'].'"><button type="button" class="btn btn-info btn-xs btn-round"><span class="glyphicon glyphicon-info-sign"></span></button></a> ';
+
+                                    //Write delete button only if we are logged as admin
+                                    if($_SESSION['login'] == 'admin')
+                                    {
+                                        echo ' <a><button type="button" class="btn btn-danger btn-xs btn-round"><span class="glyphicon glyphicon-trash"></span></button></a>';
+                                    }
+
+                            echo '</td></tr>';
+                        }
                         ?>
 
                     </tbody>
