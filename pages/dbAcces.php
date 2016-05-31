@@ -691,13 +691,30 @@ class dbAcces
 
 	//FUNCTION HEADER
     // <summary>
-    // Get aéé the services of a car
+    // Get all the services of a car
     // </summary>
     /// <return>Return table with all services</return>
 	public function getServices($idCar)
 	{
-		
+		$reqServices = $this->db->prepare('SELECT * FROM t_service INNER JOIN t_driver ON fkDriver = idDriver WHERE fkCar = :idCar');
+		$reqServices->execute(array(
+			'idCar' => $idCar
+			));
+		$tabServices = $reqServices->fetchAll();
+		return $tabServices;
+	}
 
+	//FUNCTION HEADER
+    // <summary>
+    // Get all the drivers
+    // </summary>
+    /// <return>Return table with all drivers</return>
+	public function getAllDriver()
+	{
+		$reqDriver = $this->db->query('SELECT * FROM t_driver');
+		$tabDriver = $reqDriver->fetchAll();
+
+		return $tabDriver;
 	}
 
 }
