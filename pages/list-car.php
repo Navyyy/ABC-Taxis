@@ -200,7 +200,7 @@ if(isset($_SESSION['login']))
 
                                     //Chekc if there's a note and write something if there's one
                                     $note = $function->getNotes($car['idCar']);
-                                    if(count($note) !== 0)
+                                    if(count($note) !== 0 AND $note[0]['notChecked'] == 'n')
                                     {
                                         echo '<span class="color-red">Remarque à lire</span>';
                                     }
@@ -217,7 +217,7 @@ if(isset($_SESSION['login']))
                                     //Write delete button only if we are logged as admin
                                     if($_SESSION['login'] == 'admin')
                                     {
-                                        echo ' <a onclick="return checkDelete()" href="./delete-car?idCar='.$car['idCar'].'" ><button type="button" class="btn btn-danger btn-xs btn-round"><span class="glyphicon glyphicon-trash"></span></button></a>';
+                                        echo ' <a onclick="return checkDelete()" href="./delete-car.php?idCar='.$car['idCar'].'" ><button type="button" class="btn btn-danger btn-xs btn-round"><span class="glyphicon glyphicon-trash"></span></button></a>';
                                     }
 
                             echo '</td></tr>';

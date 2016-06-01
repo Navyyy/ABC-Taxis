@@ -17,7 +17,7 @@ if(isset($_SESSION['login']) AND $_SESSION['login'] == 'admin')
 	//Method to connect to the db
 	$function->dbConnect();
 
-	//Add the car only if there's at least the registration
+	//Add the car only if there's at least the registration and the class
 	if(isset($_POST['registrationAdd']) AND $_POST['registrationAdd'] !== '' AND isset($_POST['classAdd']) AND $_POST['classAdd'] !== '')
 	{
 

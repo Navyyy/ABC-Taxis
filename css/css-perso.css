@@ -243,6 +243,10 @@ table{
 	text-align:center;
 }
 
+.color-red{
+	color:red;
+}
+
 
 @keyframes turn{
 	0%{

@@ -615,7 +615,7 @@ class dbAcces
     // <return>Return a tab of the cars</return>
 	public function getAllCar()
 	{
-		$reqCar = $this->db->query('SELECT idCar, carRegistration, carBrand, carSeats FROM t_car');
+		$reqCar = $this->db->query('SELECT idCar, carRegistration, carBrand, carSeats FROM t_car WHERE carDeleted = "n"');
 
 		$tabCar = $reqCar->fetchAll();
 
@@ -633,7 +633,7 @@ class dbAcces
     /// <return>Return the notes</return>
 	public function getNotes($idCar)
 	{
-		$reqCheckNote = $this->db->prepare('SELECT notDescription, notDate, driName FROM t_note INNER JOIN t_driver ON fkDriver = idDriver WHERE fkCar = :idCar');
+		$reqCheckNote = $this->db->prepare('SELECT notDescription, notDate, driName, notChecked FROM t_note INNER JOIN t_driver ON fkDriver = idDriver WHERE fkCar = :idCar');
 		$reqCheckNote->execute(array(
 			'idCar' => $idCar
 			));
@@ -703,6 +703,7 @@ class dbAcces
     // <summary>
     // Get all the services of a car
     // </summary>
+    //<var name="idCar">id of the car to check</var>
     /// <return>Return table with all services</return>
 	public function getServices($idCar)
 	{
@@ -731,6 +732,17 @@ class dbAcces
 		return $tabDriver;
 	}
 
+	//FUNCTION HEADER
+    // <summary>
+    // Create a new car in the db
+    // </summary>
+    //<var name="registration">registration of the car</var>
+    //<var name="model">model of the car</var>
+    //<var name="brand">brand of the car</var>
+    //<var name="year"> year of the car</var>
+    //<var name="chassis">chassis of the car</var>
+    //<var name="seats">seats of the car</var>
+    //<var name="class">class of the car</var>
 	public function addCar($registration, $model, $brand, $year, $chassis, $seats, $class)
 	{
 		//Put empty var to NULL
@@ -748,6 +760,69 @@ class dbAcces
 		$reqAddCar->execute();
 
 		$reqAddCar->closeCursor();
+	}
+
+	//FUNCTION HEADER
+    // <summary>
+    // Delete a car in the db
+    // </summary>
+    //<var name="idCar">id of the car to delete</var>
+	public function deleteCar($idCar)
+	{
+
+		$reqDelCar = $this->db->prepare('UPDATE t_car SET carDeleted = "y" WHERE idCar = :idCar');
+		$reqDelCar->execute(array(
+			'idCar' => $idCar
+			));
+		$reqDelCar->closeCursor();
+
+	}
+
+	//FUNCTION HEADER
+    // <summary>
+    // Modify a car in the db
+    // </summary>
+    //<var name="idCar">id of the car</var>
+    //<var name="registration">registration of the car</var>
+    //<var name="model">model of the car</var>
+    //<var name="brand">brand of the car</var>
+    //<var name="year"> year of the car</var>
+    //<var name="chassis">chassis of the car</var>
+    //<var name="seats">seats of the car</var>
+    //<var name="class">class of the car</var>
+	public function modifyCar($idCar, $registration, $model, $brand, $year, $chassis, $seats, $class)
+	{
+		//Put empty var to NULL
+		if($year == '' OR $year == 0)
+		{
+			$year = 'NULL';
+		}
+
+		if($seats == '' OR $seats == 0)
+		{
+			$seats = 'NULL';
+		}
+
+		$reqModifyCar = $this->db->prepare('UPDATE t_car SET carRegistration = "'.$registration.'", carModel = "'.$model.'", carBrand = "'.$brand.'", carYear = '.$year.', carChassis = "'.$chassis.'", carSeats = '.$seats.', fkClass= '.$class.' WHERE idCar = '.$idCar);
+		echo 'UPDATE t_car SET carRegistration = "'.$registration.'", carModel = "'.$model.'", carBrand = "'.$brand.'", carYear = '.$year.', carChassis = "'.$chassis.'", carSeats = '.$seats.', fkClass= '.$class.' WHERE idCar = '.$idCar;
+		$reqModifyCar->execute();
+		$reqModifyCar->closeCursor();
+	}
+
+	//FUNCTION HEADER
+    // <summary>
+    // Add a service to a car
+    // </summary>
+    //<var name="idCar">id of the car</var>
+    //<var name="service">service made to the the car</var>
+    //<var name="driver">Realisator of the service</var>
+	public function addService($idCar, $service, $driver)
+	{
+		$date = date('Y-m-d');
+
+		$reqAddService = $this->db->prepare('INSERT INTO t_service (`idService`, `serDescription`, `serDate`, `fkDriver`, `fkCar`) VALUES(NULL, "'.$service.'", "'.$date.'", '.$driver.', '.$idCar.')');
+		$reqAddService->execute();
+		$reqAddService->closeCursor();
 	}
 
 }

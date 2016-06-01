@@ -156,6 +156,7 @@ if(isset($_SESSION['login']))
 
             <div class="center">
 
+
                 <!--__________Form with car info_____________-->
 
                 <div class="panel panel-detail">
@@ -164,7 +165,12 @@ if(isset($_SESSION['login']))
 
                     <div class="panel-body">
 
-                        <form method="POST" action="#">
+                        <form method="POST" action="modify-car.php">
+
+                            <?php
+                            //Hidden input with the id of the car
+                            echo '<input name="idCar" type="hidden" value="'.$_GET['idCar'].'">'
+                            ?>
 
                             <!--______Registration_____-->
                             <div class="form-group">
@@ -186,7 +192,7 @@ if(isset($_SESSION['login']))
                                     <?php
                                         if(count($tabCar) !== 0)
                                         {
-                                            echo '<option value"'.$tabCar[0]['idClass'].'">'.$tabCar[0]['claName'].'</option>';
+                                            echo '<option value="'.$tabCar[0]['idClass'].'">'.$tabCar[0]['claName'].'</option>';
                                         }
                                         else
                                         {
@@ -195,7 +201,7 @@ if(isset($_SESSION['login']))
 
                                         foreach($tabClass as $class)
                                         {
-                                            echo '<option value"'.$class['idClass'].'">'.$class['claName'].'</option>';
+                                            echo '<option value="'.$class['idClass'].'">'.$class['claName'].'</option>';
                                         }
 
                                     ?>
@@ -312,7 +318,12 @@ if(isset($_SESSION['login']))
                             {
                                 ?>
 
-                                <form method="POST" action="#">
+                                <form method="POST" action="add-service.php">
+
+                                    <?php
+                                    //Hidden input with the id of the car
+                                    echo '<input name="idCar" type="hidden" value="'.$_GET['idCar'].'">'
+                                    ?>
 
                                     <div class="form-group">
 
@@ -383,7 +394,11 @@ if(isset($_SESSION['login']))
                                         if(isset($_SESSION['login']) AND $_SESSION['login'] == 'admin')
                                         {
                                             echo '<td>';
-                                            echo '<a><button type="button" class="btn btn-info btn-xs btn-round"><span class="glyphicon glyphicon-ok"></span></button></a>';
+
+                                            if($note['notChecked'] == 'n')
+                                            {
+                                                echo '<a><button type="button" class="btn btn-info btn-xs btn-round"><span class="glyphicon glyphicon-ok"></span></button></a>';
+                                            }
                                             echo ' <a><button type="button" class="btn btn-danger btn-xs btn-round"><span class="glyphicon glyphicon-trash"></span></button></a>';
                                             echo '</td>';
                                         }
