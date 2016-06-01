@@ -225,6 +225,14 @@ table{
 	border-radius:100%;
 }
 
+.btn-round:focus{
+	outline:none;
+}
+
+.btn-round:active{
+	outline:none;
+}
+
 .table th, td{
 	border:none;
 	text-align:left;

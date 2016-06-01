@@ -633,7 +633,7 @@ class dbAcces
     /// <return>Return the notes</return>
 	public function getNotes($idCar)
 	{
-		$reqCheckNote = $this->db->prepare('SELECT notDescription, notDate, driName, notChecked FROM t_note INNER JOIN t_driver ON fkDriver = idDriver WHERE fkCar = :idCar');
+		$reqCheckNote = $this->db->prepare('SELECT * FROM t_note INNER JOIN t_driver ON fkDriver = idDriver WHERE fkCar = :idCar');
 		$reqCheckNote->execute(array(
 			'idCar' => $idCar
 			));
@@ -823,6 +823,30 @@ class dbAcces
 		$reqAddService = $this->db->prepare('INSERT INTO t_service (`idService`, `serDescription`, `serDate`, `fkDriver`, `fkCar`) VALUES(NULL, "'.$service.'", "'.$date.'", '.$driver.', '.$idCar.')');
 		$reqAddService->execute();
 		$reqAddService->closeCursor();
+	}
+
+	//FUNCTION HEADER
+    // <summary>
+    // Add a note to a car
+    // </summary>
+    //<var name="idCar">id of the car</var>
+    //<var name="note">Description of the note</var>
+    //<var name="driver">Note writer</var>
+	public function addNote($idCar, $note, $driver)
+	{
+		$date = date('Y-m-d');
+
+		$reqAddNote = $this->db->prepare('INSERT INTO t_note (`idNote`, `notDescription`, `notDate`, `fkCar`, `fkDriver`) VALUES(NULL, "'.$note.'", "'.$date.'", '.$idCar.', '.$driver.')');
+		$reqAddNote->execute();
+		$reqAddNote->closeCursor();
+
+	}
+
+	public function validateNote($idNote)
+	{
+		$reqValidateNote = $this->db->prepare('UPDATE t_note SET notChecked = "y" WHERE idNote = '.$idNote);
+		$reqValidateNote->execute();
+		$reqValidateNote->closeCursor();
 	}
 
 }

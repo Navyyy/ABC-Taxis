@@ -397,7 +397,7 @@ if(isset($_SESSION['login']))
 
                                             if($note['notChecked'] == 'n')
                                             {
-                                                echo '<a><button type="button" class="btn btn-info btn-xs btn-round"><span class="glyphicon glyphicon-ok"></span></button></a>';
+                                                echo '<a href="./validate-note.php?idNote='.$note['idNote'].'&idCar='.$_GET['idCar'].'"><button type="button" class="btn btn-info btn-xs btn-round"><span class="glyphicon glyphicon-ok"></span></button></a>';
                                             }
                                             echo ' <a><button type="button" class="btn btn-danger btn-xs btn-round"><span class="glyphicon glyphicon-trash"></span></button></a>';
                                             echo '</td>';
@@ -413,7 +413,12 @@ if(isset($_SESSION['login']))
 
                         <!--Form to add a note-->
 
-                        <form method="POST" action="#">
+                        <form method="POST" action="add-note.php">
+
+                            <?php
+                            //Hidden input with the id of the car
+                            echo '<input name="idCar" type="hidden" value="'.$_GET['idCar'].'">'
+                            ?>
 
                             <div class="form-group">
 
