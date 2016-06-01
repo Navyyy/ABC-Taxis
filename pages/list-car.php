@@ -217,7 +217,7 @@ if(isset($_SESSION['login']))
                                     //Write delete button only if we are logged as admin
                                     if($_SESSION['login'] == 'admin')
                                     {
-                                        echo ' <a onclick="return checkDelete()" href="./delete-car.php?idCar='.$car['idCar'].'" ><button type="button" class="btn btn-danger btn-xs btn-round"><span class="glyphicon glyphicon-trash"></span></button></a>';
+                                        echo ' <a onclick="return checkDelete()" href="./delete-car.php?idCar='.$car['idCar'].'" ><button type="submit" class="btn btn-danger btn-xs btn-round"><span class="glyphicon glyphicon-trash"></span></button></a>';
                                     }
 
                             echo '</td></tr>';

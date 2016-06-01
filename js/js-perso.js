@@ -106,3 +106,50 @@ function checkDelete()
 {
     return confirm('Voulez-vous vraiment supprimer cet élément ?')
 }
+
+
+/*Global var
+var matchRegistration = false
+var matchClass = false
+
+
+//Function that check registration input
+function checkRegistration(registration)
+{
+	//Check registration
+	if(registration.value !== '')
+	{
+		matchRegistration = true
+	}
+	else
+	{
+		matchRegistration = false
+	}
+}
+
+//Function that check class list
+function checkClass(classe)
+{
+	if(classe.vlaue !== '')
+	{
+		matchClass = true
+	}
+	else
+	{
+		matchClass = false
+	}
+}
+
+function checkAddCar()
+{
+	if(matchRegistration == false || matchClass == false)
+	{
+		return false
+		alert("Veuillez remplir au moins les champs Immatriculation et Classe !")
+	}
+	else
+	{
+		return true
+	}
+
+}*/

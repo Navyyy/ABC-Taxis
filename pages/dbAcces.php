@@ -756,6 +756,11 @@ class dbAcces
 			$seats = 'NULL';
 		}
 
+		$registration = addslashes($registration);
+		$model = addslashes($model);
+		$brand = addslashes($brand);
+		$chassis = addslashes($chassis);
+
 		$reqAddCar = $this->db->prepare('INSERT INTO t_car (`idCar`, `carModel`, `carBrand`, `carRegistration`, `carYear`, `carChassis`, `carSeats`, `fkClass`) VALUES(NULL, "'.$model.'", "'.$brand.'", "'.$registration.'", '.$year.', "'.$chassis.'", '.$seats.', '.$class.')');
 		$reqAddCar->execute();
 
@@ -803,6 +808,11 @@ class dbAcces
 			$seats = 'NULL';
 		}
 
+		$registration = addslashes($registration);
+		$model = addslashes($model);
+		$brand = addslashes($brand);
+		$chassis = addslashes($chassis);
+
 		$reqModifyCar = $this->db->prepare('UPDATE t_car SET carRegistration = "'.$registration.'", carModel = "'.$model.'", carBrand = "'.$brand.'", carYear = '.$year.', carChassis = "'.$chassis.'", carSeats = '.$seats.', fkClass= '.$class.' WHERE idCar = '.$idCar);
 		echo 'UPDATE t_car SET carRegistration = "'.$registration.'", carModel = "'.$model.'", carBrand = "'.$brand.'", carYear = '.$year.', carChassis = "'.$chassis.'", carSeats = '.$seats.', fkClass= '.$class.' WHERE idCar = '.$idCar;
 		$reqModifyCar->execute();
@@ -819,6 +829,7 @@ class dbAcces
 	public function addService($idCar, $service, $driver)
 	{
 		$date = date('Y-m-d');
+		$service = addslashes($service);
 
 		$reqAddService = $this->db->prepare('INSERT INTO t_service (`idService`, `serDescription`, `serDate`, `fkDriver`, `fkCar`) VALUES(NULL, "'.$service.'", "'.$date.'", '.$driver.', '.$idCar.')');
 		$reqAddService->execute();
@@ -835,6 +846,7 @@ class dbAcces
 	public function addNote($idCar, $note, $driver)
 	{
 		$date = date('Y-m-d');
+		$note = addslashes($note);
 
 		$reqAddNote = $this->db->prepare('INSERT INTO t_note (`idNote`, `notDescription`, `notDate`, `fkCar`, `fkDriver`) VALUES(NULL, "'.$note.'", "'.$date.'", '.$idCar.', '.$driver.')');
 		$reqAddNote->execute();
