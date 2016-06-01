@@ -255,6 +255,16 @@ table{
 	color:red;
 }
 
+.numDay{
+	font-size: 16px;
+}
+
+.numDaySpan{
+	border-left:2px solid gray;
+	
+	padding:2px;
+}
+
 
 @keyframes turn{
 	0%{
