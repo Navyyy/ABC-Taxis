@@ -53,7 +53,7 @@ if(isset($_SESSION['login']))
 
             <link rel="icon" href="http://www.abctaxis.ch/favicon.png">
 
-            <title>Planning chauffeurs | ABC Taxis Cochet SA</title>
+            <title>Détail d'un véhicule | ABC Taxis Cochet SA</title>
         </head>
 
         <body>

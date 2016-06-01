@@ -36,7 +36,7 @@ if(isset($_SESSION['login']))
 
             <link rel="icon" href="http://www.abctaxis.ch/favicon.png">
 
-            <title>Planning chauffeurs | ABC Taxis Cochet SA</title>
+            <title>Liste des véhicules | ABC Taxis Cochet SA</title>
         </head>
 
         <body>
@@ -200,7 +200,18 @@ if(isset($_SESSION['login']))
 
                                     //Chekc if there's a note and write something if there's one
                                     $note = $function->getNotes($car['idCar']);
-                                    if(count($note) !== 0 AND $note[0]['notChecked'] == 'n')
+
+                                    //Loop to check if there's an unread note
+                                    $checkNote = 'y';
+                                    foreach($note as $n)
+                                    {
+                                        if($n['notChecked'] == 'n')
+                                        {
+                                            $checkNote = 'n';
+                                        }
+                                    }
+
+                                    if(count($note) !== 0 AND $checkNote == 'n')
                                     {
                                         echo '<span class="color-red">Remarque à lire</span>';
                                     }
