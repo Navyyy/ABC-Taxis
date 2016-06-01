@@ -84,267 +84,272 @@ if(isset($_SESSION['login']))
 
             ?>
 
-            <!--__________Form with car info_____________-->
+            <div class="center">
 
-            <div class="panel col-sm-offset col-sm-4">
+                <!--__________Form with car info_____________-->
 
-                <legend><h2>Information sur le véhicule</h2></legend>
+                <div class="panel panel-detail">
 
-                <div class="panel-body">
+                    <legend><h2>Information sur le véhicule</h2></legend>
 
-                    <form method="POST" action="#">
+                    <div class="panel-body">
 
-                        <!--______Registration_____-->
-                        <div class="form-group">
+                        <form method="POST" action="#">
 
-                            <label for="registration">Immatriculation :</label>
-                            <?php
-                            echo '<input '.$allowed.' name="registration" type="text" class="form-control" placeholder="Immatriculation" value="'.$tabCar[0]['carRegistration'].'">';
-                            ?>
+                            <!--______Registration_____-->
+                            <div class="form-group">
 
-                        </div>
-
-                        <!--______Class_____-->
-                        <div class="form-group">
-
-                            <label for="class">Classe :</label>
-                            <?php
-                            echo '<select '.$allowed.' class="form-control">';
-                            ?>
+                                <label for="registration">Immatriculation :</label>
                                 <?php
-                                    echo '<option value"'.$tabCar[0]['idClass'].'">'.$tabCar[0]['claName'].'</option>';
+                                echo '<input '.$allowed.' name="registration" type="text" class="form-control" placeholder="Immatriculation" value="'.$tabCar[0]['carRegistration'].'">';
+                                ?>
 
-                                    foreach($tabClass as $class)
-                                    {
-                                        echo '<option value"'.$class['idClass'].'">'.$class['claName'].'</option>';
-                                    }
+                            </div>
+
+                            <!--______Class_____-->
+                            <div class="form-group">
+
+                                <label for="class">Classe :</label>
+                                <?php
+                                echo '<select '.$allowed.' class="form-control">';
+                                ?>
+                                    <?php
+                                        echo '<option value"'.$tabCar[0]['idClass'].'">'.$tabCar[0]['claName'].'</option>';
+
+                                        foreach($tabClass as $class)
+                                        {
+                                            echo '<option value"'.$class['idClass'].'">'.$class['claName'].'</option>';
+                                        }
+
+                                    ?>
+                                </select>
+
+                            </div>
+
+                            <!--______Brand_____-->
+                            <div class="form-group">
+
+                                <label for="brand">Marque :</label>
+                                <?php
+                                echo '<input '.$allowed.' name="brand" type="text" class="form-control" placeholder="Marque" value="'.$tabCar[0]['carBrand'].'">';
+                                ?>
+
+                            </div>
+
+                            <!--______Model_____-->
+                            <div class="form-group">
+
+                                <label for="model">Modèle :</label>
+                                <?php
+                                echo '<input '.$allowed.' name="model" type="text" class="form-control" placeholder="Modèle" value="'.$tabCar[0]['carModel'].'">';
+                                ?>
+
+                            </div>
+
+                            <!--______Year_____-->
+                            <div class="form-group">
+
+                                <label for="year">Année :</label>
+                                <?php
+                                echo '<input '.$allowed.' name="year" type="number" class="form-control" placeholder="Année" value="'.$tabCar[0]['carYear'].'">';
+                                ?>
+
+                            </div>
+
+                            <!--______NbSeats_____-->
+                            <div class="form-group">
+
+                                <label for="seats">Nombre de sièges :</label>
+                                <?php
+                                echo '<input '.$allowed.' name="seats" type="number" class="form-control" placeholder="Nombre de sièges" value="'.$tabCar[0]['carSeats'].'">';
+                                ?>
+
+                            </div>
+
+                            <!--Display done button only if logged as admin-->
+                            <?php
+                            if(isset($_SESSION['login']) AND $_SESSION['login'] == 'admin')
+                            {
+                                echo '<button type="submit" class="btn btn-primary btn-block">Appliquer les modifications</button>';
+                            }
+
+                            ?>
+
+                        </form>
+
+                    </div>
+                </div>
+
+                <!--__________/Form with car info_____________-->
+
+                <!--__________Services made and notes_____________-->
+                <div class="panel panel-detail">
+
+                    <!--___________________SERVICES_______________-->
+                    <legend><h2>Liste des services effectués</h2></legend>
+
+                    <div class="panel-body">
+                        
+                        <!--Table that print the services made-->
+                        <table class="table">
+
+                            <thead>
+                                <tr>
+                                    <th style="width:15%">Date</th>
+                                    <th style="width:65%">Description</th>
+                                    <th style="width:20%">Réaliser par</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <?php
+                                foreach($tabServices as $service)
+                                {
+                                    echo '<tr>';
+                                        echo '<td>'.$service['serDate'].'</td>';
+                                        echo '<td>'.str_replace("\n","<br/>",$service['serDescription']).'</td>';
+                                        echo '<td>'.$service['driName'].'</td>';
+                                    echo '</tr>';
+                                }
 
                                 ?>
-                            </select>
+                            </tbody>
 
-                        </div>
+                        </table>
+                        <!--/Table that print the services made-->
 
-                        <!--______Brand_____-->
-                        <div class="form-group">
+                        <!--Form to add a service (only if admin)-->
 
-                            <label for="brand">Marque :</label>
-                            <?php
-                            echo '<input '.$allowed.' name="brand" type="text" class="form-control" placeholder="Marque" value="'.$tabCar[0]['carBrand'].'">';
-                            ?>
-
-                        </div>
-
-                        <!--______Model_____-->
-                        <div class="form-group">
-
-                            <label for="model">Modèle :</label>
-                            <?php
-                            echo '<input '.$allowed.' name="model" type="text" class="form-control" placeholder="Modèle" value="'.$tabCar[0]['carModel'].'">';
-                            ?>
-
-                        </div>
-
-                        <!--______Year_____-->
-                        <div class="form-group">
-
-                            <label for="year">Année :</label>
-                            <?php
-                            echo '<input '.$allowed.' name="year" type="number" class="form-control" placeholder="Année" value="'.$tabCar[0]['carYear'].'">';
-                            ?>
-
-                        </div>
-
-                        <!--______NbSeats_____-->
-                        <div class="form-group">
-
-                            <label for="seats">Nombre de sièges :</label>
-                            <?php
-                            echo '<input '.$allowed.' name="seats" type="number" class="form-control" placeholder="Nombre de sièges" value="'.$tabCar[0]['carSeats'].'">';
-                            ?>
-
-                        </div>
-
-                        <!--Display done button only if logged as admin-->
                         <?php
-                        if(isset($_SESSION['login']) AND $_SESSION['login'] == 'admin')
-                        {
-                            echo '<button type="submit" class="btn btn-primary btn-block">Appliquer les modifications</button>';
-                        }
-
-                        ?>
-
-                    </form>
-
-                </div>
-            </div>
-
-            <!--__________/Form with car info_____________-->
-
-            <!--__________Services made and notes_____________-->
-            <div class="panel col-sm-offset-1 col-sm-7">
-
-                <!--___________________SERVICES_______________-->
-                <legend><h2>Liste des services effectués</h2></legend>
-
-                <div class="panel-body">
-                    
-                    <!--Table that print the services made-->
-                    <table class="table">
-
-                        <thead>
-                            <tr>
-                                <th style="width:15%">Date</th>
-                                <th style="width:65%">Description</th>
-                                <th style="width:20%">Réaliser par</th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            <?php
-                            foreach($tabServices as $service)
+                            if(isset($_SESSION['login']) AND $_SESSION['login'] == 'admin')
                             {
-                                echo '<tr>';
-                                    echo '<td>'.$service['serDate'].'</td>';
-                                    echo '<td>'.str_replace("\n","<br/>",$service['serDescription']).'</td>';
-                                    echo '<td>'.$service['driName'].'</td>';
-                                echo '</tr>';
-                            }
-
-                            ?>
-                        </tbody>
-
-                    </table>
-                    <!--/Table that print the services made-->
-
-                    <!--Form to add a service (only if admin)-->
-
-                    <?php
-                        if(isset($_SESSION['login']) AND $_SESSION['login'] == 'admin')
-                        {
-                            ?>
-
-                            <form method="POST" action="#">
-
-                                <div class="form-group">
-
-                                    <textarea style="resize:none" name="service" placeholder="Ajouter un service" class="form-control" rows="3"></textarea>
-
-                                </div>
-
-                                <div class="form-group">
-
-                                    <!--Write all the drivers-->
-                                    <select name="name" class="form-control">
-                                        <?php
-                                            $tabDriver = $function->getAllDriver();
-
-                                            foreach($tabDriver as $driver)
-                                            {
-                                                echo '<option value="'.$driver['idDriver'].'">'.$driver['driName'].'</option>';
-                                            }
-                                        ?>
-                                    </select>
-
-                                </div>
-
-                                <button type="submit" class="btn btn-primary btn-block">Ajouter le service</button>
-
-                            </form>
-
-                            <?php
-                        }
-                    ?>
-                    <!--/Form to add a service (only if admin)-->
-
-
-                </div>
-            </div>
-
-                <!--______________/SERVICES_______________-->
-
-
-                <!--_______________Notes_______________-->
-            <div class="panel col-sm-offset-1 col-sm-7">
-
-                <legend><h2>Liste des remarques</h2></legend>
-
-                <div class="panel-body">
-
-                    <!--Table that print notes-->
-                    <table class="table">
-
-                        <thead>
-                            <tr>
-                                <th style="width:15%">Date</th>
-                                <th style="width:55%">Description</th>
-                                <th style="width:20%">Posté par</th>
-                                <th style="width:10%">Action</th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            <?php
-                            foreach($tabNotes as $note)
-                            {
-                                echo '<tr>';
-                                    echo '<td>'.$note['notDate'].'</td>';
-                                    echo '<td>'.str_replace("\n","<br/>",$note['notDescription']).'</td>';
-                                    echo '<td>'.$note['driName'].'</td>';
-                                    echo '<td>';
-                                    echo '<a><button type="button" class="btn btn-info btn-xs btn-round"><span class="glyphicon glyphicon-ok"></span></button></a>';
-                                    echo ' <a><button type="button" class="btn btn-danger btn-xs btn-round"><span class="glyphicon glyphicon-trash"></span></button></a>';
-                                    echo '</td>';
-                                echo '</tr>';
-                            }
-
-                            ?>
-                        </tbody>
-
-                    </table>
-                    <!--/Table that print notes-->
-
-                    <!--Form to add a note-->
-
-                    <form method="POST" action="#">
-
-                        <div class="form-group">
-
-                            <textarea style="resize:none" name="note" placeholder="Ajouter une remarque" class="form-control" rows="3"></textarea>
-
-                        </div>
-
-                        <div class="form-group">
-
-                            <!--Write all the drivers-->
-                            <select name="name" class="form-control">
-                                <?php
-                                    $tabDriver = $function->getAllDriver();
-
-                                    foreach($tabDriver as $driver)
-                                    {
-                                        echo '<option value="'.$driver['idDriver'].'">'.$driver['driName'].'</option>';
-                                    }
                                 ?>
-                            </select>
 
-                        </div>
+                                <form method="POST" action="#">
 
-                        <button type="submit" class="btn btn-primary btn-block">Ajouter le service</button>
+                                    <div class="form-group">
 
-                    </form>
+                                        <textarea style="resize:none" name="service" placeholder="Ajouter un service" class="form-control" rows="3"></textarea>
 
-                    <!--/Form to add a note-->
+                                    </div>
+
+                                    <div class="form-group">
+
+                                        <!--Write all the drivers-->
+                                        <select name="name" class="form-control">
+                                            <?php
+                                                $tabDriver = $function->getAllDriver();
+
+                                                foreach($tabDriver as $driver)
+                                                {
+                                                    echo '<option value="'.$driver['idDriver'].'">'.$driver['driName'].'</option>';
+                                                }
+                                            ?>
+                                        </select>
+
+                                    </div>
+
+                                    <button type="submit" class="btn btn-primary btn-block">Ajouter le service</button>
+
+                                </form>
+
+                                <?php
+                            }
+                        ?>
+                        <!--/Form to add a service (only if admin)-->
+
+
+                    </div>
+
+                    <!--______________/SERVICES_______________-->
+
+
+                    <!--_______________Notes_______________-->
+
+                    <legend><h2>Liste des remarques</h2></legend>
+
+                    <div class="panel-body">
+
+                        <!--Table that print notes-->
+                        <table class="table">
+
+                            <thead>
+                                <tr>
+                                    <th style="width:15%">Date</th>
+                                    <th style="width:55%">Description</th>
+                                    <th style="width:20%">Posté par</th>
+                                    <th style="width:10%">Action</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <?php
+                                foreach($tabNotes as $note)
+                                {
+                                    echo '<tr>';
+                                        echo '<td>'.$note['notDate'].'</td>';
+                                        echo '<td>'.str_replace("\n","<br/>",$note['notDescription']).'</td>';
+                                        echo '<td>'.$note['driName'].'</td>';
+
+                                        //Print ok and trash button only if admin
+                                        if(isset($_SESSION['login']) AND $_SESSION['login'] == 'admin')
+                                        {
+                                            echo '<td>';
+                                            echo '<a><button type="button" class="btn btn-info btn-xs btn-round"><span class="glyphicon glyphicon-ok"></span></button></a>';
+                                            echo ' <a><button type="button" class="btn btn-danger btn-xs btn-round"><span class="glyphicon glyphicon-trash"></span></button></a>';
+                                            echo '</td>';
+                                        }
+                                    echo '</tr>';
+                                }
+
+                                ?>
+                            </tbody>
+
+                        </table>
+                        <!--/Table that print notes-->
+
+                        <!--Form to add a note-->
+
+                        <form method="POST" action="#">
+
+                            <div class="form-group">
+
+                                <textarea style="resize:none" name="note" placeholder="Ajouter une remarque" class="form-control" rows="3"></textarea>
+
+                            </div>
+
+                            <div class="form-group">
+
+                                <!--Write all the drivers-->
+                                <select name="name" class="form-control">
+                                    <?php
+                                        $tabDriver = $function->getAllDriver();
+
+                                        foreach($tabDriver as $driver)
+                                        {
+                                            echo '<option value="'.$driver['idDriver'].'">'.$driver['driName'].'</option>';
+                                        }
+                                    ?>
+                                </select>
+
+                            </div>
+
+                            <button type="submit" class="btn btn-primary btn-block">Ajouter le service</button>
+
+                        </form>
+
+                        <!--/Form to add a note-->
+
+                    </div>
+
+                    <!--_______________/Notes_______________-->
 
                 </div>
-
-                <!--_______________/Notes_______________-->
-
+                <!--__________/Services made and notes_____________-->
 
             </div>
-            <!--__________/Services made and notes_____________-->
 
-
-            <!--_________________/Detail of the car_________________-->
+                <!--_________________/Detail of the car_________________-->
 
         </body>
     </html> 

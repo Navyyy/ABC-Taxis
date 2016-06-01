@@ -70,6 +70,7 @@ table{
 	width:200px;
 }
 
+
 /*CLASS*/
 
 .car-planning-day-name{
@@ -224,6 +225,18 @@ table{
 	text-align:left;
 	font-size:15px;
 }
+
+.panel-detail{
+	margin:15px;
+	display:inline-table;
+	text-align:left;
+}
+
+.center{
+	margin:0 auto;
+	text-align:center;
+}
+
 
 @keyframes turn{
 	0%{
