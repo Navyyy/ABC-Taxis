@@ -399,7 +399,7 @@ if(isset($_SESSION['login']))
                                             {
                                                 echo '<a href="./validate-note.php?idNote='.$note['idNote'].'&idCar='.$_GET['idCar'].'"><button type="button" class="btn btn-info btn-xs btn-round"><span class="glyphicon glyphicon-ok"></span></button></a>';
                                             }
-                                            echo ' <a><button type="button" class="btn btn-danger btn-xs btn-round"><span class="glyphicon glyphicon-trash"></span></button></a>';
+                                            echo ' <a onclick="return checkDelete()" href="./delete-note.php?idNote='.$note['idNote'].'&idCar='.$_GET['idCar'].'"><button type="button" class="btn btn-danger btn-xs btn-round"><span class="glyphicon glyphicon-trash"></span></button></a>';
                                             echo '</td>';
                                         }
                                     echo '</tr>';

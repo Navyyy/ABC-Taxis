@@ -842,11 +842,23 @@ class dbAcces
 
 	}
 
+	//FUNCTION HEADER
+    // <summary>
+    // Mark a note as read
+    // </summary>
+    //<var name="idNote">id of the note to check</var>
 	public function validateNote($idNote)
 	{
 		$reqValidateNote = $this->db->prepare('UPDATE t_note SET notChecked = "y" WHERE idNote = '.$idNote);
 		$reqValidateNote->execute();
 		$reqValidateNote->closeCursor();
+	}
+
+	public function deleteNote($idNote)
+	{
+		$reqDeleteNote = $this->db->prepare('DELETE FROM t_note WHERE idNote ='.$idNote);
+		$reqDeleteNote->execute();
+		$reqDeleteNote->closeCursor();
 	}
 
 }
