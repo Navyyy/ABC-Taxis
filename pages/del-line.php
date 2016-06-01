@@ -25,7 +25,5 @@ if(isset($_SESSION['login']) AND $_SESSION['login'] == 'admin')
 	{
 		$function->delLine($_GET['line'],$selectedMonth,$selectedYear);
 	}
-	?>
-	<meta http-equiv="refresh" content="0; URL=calender.php"/>
-<?php
+	header('Location: calender.php');
 }

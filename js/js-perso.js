@@ -100,3 +100,9 @@ function color(select)
 		select.style['background-color'] = 'purple'
 	}
 }
+
+//Function to confirm the suppression of a member
+function checkDelete()
+{
+    return confirm('Voulez-vous vraiment supprimer cet élément ?')
+}

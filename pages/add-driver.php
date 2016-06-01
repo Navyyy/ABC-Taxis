@@ -25,8 +25,5 @@ if(isset($_SESSION['login']) AND $_SESSION['login'] == 'admin')
 
 	}
 
-	?>
-
-	<meta http-equiv="refresh" content="0; URL=calender.php"/>
-	<?php
+	header('Location: calender.php');
 }

@@ -32,27 +32,21 @@ if( isset($_SESSION['login']) AND $_SESSION['login'] == 'admin' OR $_SESSION['lo
 
 	if($_SESSION['login'] == 'admin' AND $_SESSION['version'] == 'computer')
 	{
-		?>
-		<meta http-equiv="refresh" content="0; URL=calender.php"/>
-		<?php
+		header('Location: calender.php');
 	}
 	else if($_SESSION['login'] == 'driver' AND $_SESSION['version'] == 'computer')
 	{
-		?>
-		<meta http-equiv="refresh" content="0; URL=calender-driver.php"/>
-		<?php
+		header('Location: calender-driver.php');
 	}
 	else if($_SESSION['login'] == 'driver' AND $_SESSION['version'] == 'mobile')
 	{
 		if(isset($_POST['driver']) AND $_POST['driver'] !== '')
 		{
-			echo '<meta http-equiv="refresh" content="0; URL=calender-driver-mobile.php?driver='.$_POST['driver'].'"/>';
+			header('Location: calender-driver-mobile.php?driver='.$_POST['driver']);
 		}
 		else
 		{
-			?>
-			<meta http-equiv="refresh" content="0; URL=calender-driver-mobile.php"/>
-			<?php
+			header('Location: calender-driver-mobile.php');
 		}
 	}
 	else

@@ -16,6 +16,26 @@ if(isset($_SESSION['login']))
     //Method to connect to the db
     $function->dbConnect();
 
+    //--------Get all info about the car and the current user ----------//
+
+    //Get the car informations
+    $tabCar = $function->getCarInfo($_GET['idCar']);
+    $tabNotes = $function->getNotes($_GET['idCar']);
+
+    //Get all the car classes
+    $tabClass = $function->getAllClass();
+
+    //Get all services made to the car
+    $tabServices = $function->getServices($_GET['idCar']);
+
+    //Check if the user is allowed to modify the car or not
+    $allowed = '';
+    if(isset($_SESSION['login']) AND $_SESSION['login'] == 'driver')
+    {
+        $allowed = 'readOnly';
+    }
+
+
     ?>  
 
     <!DOCTYPE html>
@@ -57,32 +77,82 @@ if(isset($_SESSION['login']))
                         <li><a href="./list-car.php"><span class="glyphicon glyphicon-road">&nbsp;</span>Liste véhicules</a></li>
                         <li><a href="./calender-car.php"><span class="glyphicon glyphicon-calendar">&nbsp;</span>Planning véhicules</a></li>
                     </ul>
+                    <?php
+
+                    //Print dropdown form only if admin
+                    if(isset($_SESSION['login']) AND $_SESSION['login'] =='admin')
+                    {
+                    ?>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li class="dropdown">
+                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Ajouter un véhicule &nbsp;<span class="glyphicon glyphicon-plus"></span></a>
+                                <div class="dropdown-menu" id="add-car-dropdown">
+
+                                    <!--FORM TO ADD A CAR-->
+                                    <form class="form" role="form" method="post" action="add-car.php" accept-charset="UTF-8">
+
+                                        <!--Immatriculation-->
+                                        <div class="form-group">
+                                            <input name="registrationAdd" type="text" class="form-control" placeholder="Immatriculation (Ex. : VD150598) *" >
+                                        </div>
+
+                                        <!--______Class_____-->
+                                        <div class="form-group">
+
+                                            <select name="classAdd" class="form-control">
+                                                <option>-- Classe* --</option>
+                                                <?php
+
+                                                    foreach($tabClass as $class)
+                                                    {
+                                                        echo '<option value="'.$class['idClass'].'">'.$class['claName'].'</option>';
+                                                    }
+
+                                                ?>
+                                            </select>
+                                        </div>
+
+                                        <!--Chassis-->
+                                        <div class="form-group">
+                                            <input name="chassisAdd" type="text" class="form-control" placeholder="Numéro de châssis" >
+                                        </div>
+
+                                        <!--Brand-->
+                                        <div class="form-group">
+                                            <input name="brandAdd" type="text" class="form-control" placeholder="Marque" >
+                                        </div>
+
+                                        <!--Model-->
+                                        <div class="form-group">
+                                            <input name="modelAdd" type="text" class="form-control" placeholder="Modèle" >
+                                        </div>
+
+                                        <!--Year-->
+                                        <div class="form-group">
+                                            <input name="yearAdd" type="number" class="form-control" placeholder="Année" >
+                                        </div>
+
+                                        <!--Seats-->
+                                        <div class="form-group">
+                                            <input name="seatsAdd" type="number" class="form-control" placeholder="Nombre de sièges" >
+                                        </div>
+
+                                        <button type="submit" class="btn btn-primary btn-block">Ajouter le véhicule</button>
+
+                                    </form>
+                                    <!--/FORM TO ADD A CAR-->
+
+                                </div>
+                            </li>
+                        </ul>
+                    <?php
+                    }
+                    ?>
                 </div>
             </nav>
             <!--____________________/NAVBAR__________________________-->
 
             <!--__________________Detail of the car_________________-->
-
-            <?php
-
-            //Get the car informations
-            $tabCar = $function->getCarInfo($_GET['idCar']);
-            $tabNotes = $function->getNotes($_GET['idCar']);
-
-            //Get all the car classes
-            $tabClass = $function->getAllClass();
-
-            //Get all services made to the car
-            $tabServices = $function->getServices($_GET['idCar']);
-
-            //Check if the user is allowed to modify the car or not
-            $allowed = '';
-            if(isset($_SESSION['login']) AND $_SESSION['login'] == 'driver')
-            {
-                $allowed = 'readOnly';
-            }
-
-            ?>
 
             <div class="center">
 
@@ -111,10 +181,17 @@ if(isset($_SESSION['login']))
 
                                 <label for="class">Classe :</label>
                                 <?php
-                                echo '<select '.$allowed.' class="form-control">';
+                                echo '<select '.$allowed.' name="class" class="form-control">';
                                 ?>
                                     <?php
-                                        echo '<option value"'.$tabCar[0]['idClass'].'">'.$tabCar[0]['claName'].'</option>';
+                                        if(count($tabCar) !== 0)
+                                        {
+                                            echo '<option value"'.$tabCar[0]['idClass'].'">'.$tabCar[0]['claName'].'</option>';
+                                        }
+                                        else
+                                        {
+                                            echo '<option>-- Classe --</option>';
+                                        }
 
                                         foreach($tabClass as $class)
                                         {
@@ -123,6 +200,16 @@ if(isset($_SESSION['login']))
 
                                     ?>
                                 </select>
+
+                            </div>
+
+                            <!--______Chassis_____-->
+                            <div class="form-group">
+
+                                <label for="chassis">Numéro de châssis :</label>
+                                <?php
+                                echo '<input '.$allowed.' name="chassis" type="text" class="form-control" placeholder="Numéro de châssis" value="'.$tabCar[0]['carChassis'].'">';
+                                ?>
 
                             </div>
 
@@ -183,7 +270,7 @@ if(isset($_SESSION['login']))
                 <!--__________/Form with car info_____________-->
 
                 <!--__________Services made and notes_____________-->
-                <div class="panel panel-detail">
+                <div class="panel panel-detail" style="width:55%">
 
                     <!--___________________SERVICES_______________-->
                     <legend><h2>Liste des services effectués</h2></legend>
@@ -237,6 +324,7 @@ if(isset($_SESSION['login']))
 
                                         <!--Write all the drivers-->
                                         <select name="name" class="form-control">
+                                            <option>-- Sélectionnez la personne qui a réalisé le service --</option>
                                             <?php
                                                 $tabDriver = $function->getAllDriver();
 
@@ -322,6 +410,7 @@ if(isset($_SESSION['login']))
 
                                 <!--Write all the drivers-->
                                 <select name="name" class="form-control">
+                                    <option>-- Sélectionnez la personne qui a écrit la remarque --</option>
                                     <?php
                                         $tabDriver = $function->getAllDriver();
 

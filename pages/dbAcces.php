@@ -551,6 +551,8 @@ class dbAcces
 			}
 		}
 
+		$reqVerifyPassword->closeCursor();
+
 		return $name;
 
 	}
@@ -617,6 +619,8 @@ class dbAcces
 
 		$tabCar = $reqCar->fetchAll();
 
+		$reqCar->closeCursor();
+
 		return $tabCar;
 		
 	}
@@ -654,6 +658,8 @@ class dbAcces
 			));
 		$tabClass = $reqClass->fetchAll();
 
+		$reqClass->closeCursor();
+
 		return $tabClass;
 	}
 
@@ -673,6 +679,8 @@ class dbAcces
 
 		$tabCar = $reqCar->fetchAll();
 
+		$reqCar->closeCursor();
+
 		return $tabCar;
 	}
 
@@ -685,6 +693,8 @@ class dbAcces
 	{
 		$reqClass = $this->db->query('SELECT * FROM t_class');
 		$tabClass = $reqClass->fetchAll();
+
+		$reqClass->closeCursor();
 
 		return $tabClass;
 	}
@@ -701,6 +711,8 @@ class dbAcces
 			'idCar' => $idCar
 			));
 		$tabServices = $reqServices->fetchAll();
+
+		$reqServices->closeCursor();
 		return $tabServices;
 	}
 
@@ -714,7 +726,28 @@ class dbAcces
 		$reqDriver = $this->db->query('SELECT * FROM t_driver');
 		$tabDriver = $reqDriver->fetchAll();
 
+		$reqDriver->closeCursor();
+
 		return $tabDriver;
+	}
+
+	public function addCar($registration, $model, $brand, $year, $chassis, $seats, $class)
+	{
+		//Put empty var to NULL
+		if($year == '' OR $year == 0)
+		{
+			$year = 'NULL';
+		}
+
+		if($seats == '' OR $seats == 0)
+		{
+			$seats = 'NULL';
+		}
+
+		$reqAddCar = $this->db->prepare('INSERT INTO t_car (`idCar`, `carModel`, `carBrand`, `carRegistration`, `carYear`, `carChassis`, `carSeats`, `fkClass`) VALUES(NULL, "'.$model.'", "'.$brand.'", "'.$registration.'", '.$year.', "'.$chassis.'", '.$seats.', '.$class.')');
+		$reqAddCar->execute();
+
+		$reqAddCar->closeCursor();
 	}
 
 }

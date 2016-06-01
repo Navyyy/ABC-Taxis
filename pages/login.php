@@ -30,21 +30,15 @@ if(isset($_POST['version']) AND isset($_POST['password']) AND $_POST['password']
 
 		if($_POST['version'] == 'computer' AND $_SESSION['login'] == 'admin' OR $_POST['version'] == 'mobile' AND $_SESSION['login'] == 'admin' )
 		{
-			?>
-			<meta http-equiv="refresh" content="0; URL=./calender.php"/>
-			<?php
+			header('Location: calender.php');
 		}
 		else if($_POST['version'] == 'computer' AND $_SESSION['login'] == 'driver')
 		{
-			?>
-			<meta http-equiv="refresh" content="0; URL=./calender-driver.php"/>
-			<?php
+			header('Location: calender-driver.php');
 		}
 		else if($_POST['version'] == 'mobile' AND $_SESSION['login'] == 'driver')
 		{
-			?>
-			<meta http-equiv="refresh" content="0; URL=./calender-driver-mobile.php"/>
-			<?php
+			header('Location: calender-driver-mobile.php');
 		}
 		else
 		{
@@ -54,16 +48,12 @@ if(isset($_POST['version']) AND isset($_POST['password']) AND $_POST['password']
 	}
 	else if($name == 'error')
 	{
-		?>
-		<meta http-equiv="refresh" content="0; URL=./../index.html"/>
-		<?php
+		header('Location: ./../index.html');
 	}
 }
 else
 {
-	?>
-	<meta http-equiv="refresh" content="0; URL=./../index.html"/>
-	<?php
+	header('Location: ./../index.html');
 }
 
 
