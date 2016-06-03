@@ -150,7 +150,7 @@ if(isset($_SESSION['login']) AND $_SESSION['login'] == 'admin')
                 ?>
 
                 <table id="plan-car-tab">
-                    <form method="post">
+                    <form method="post" action="post-car-calender.php">
 
                         <?php
                             echo '<input type="hidden" name="selectedDate" value="'.$tabDate[0]['datDate'].'">';
@@ -191,7 +191,7 @@ if(isset($_SESSION['login']) AND $_SESSION['login'] == 'admin')
 
 
                             //While dateVar < dateVar + 24h write the table <tr>
-                            while($dateVar <= ($dateStat + 24*3600))
+                            while($dateVar <= ($dateStat + ((23*3600) + 1800)))
                             {
                                 //echo date('H:i',$dateVar).'<br/>';
                                 echo '<tr>';

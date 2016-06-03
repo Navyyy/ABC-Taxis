@@ -916,6 +916,12 @@ class dbAcces
 		return $tabStatu;
 	}
 
+	//FUNCTION HEADER
+    // <summary>
+    // Get the statu of the car
+    // </summary>
+    //<var name=idCar>Id of the car to check</var>
+    //<var name=date>Date of the line to check</var>
 	public function getCarStatu($idCar, $date)
 	{
 		$reqStatu = $this->db->prepare('SELECT staBackColor, idStatu FROM t_carcalender INNER JOIN t_statu ON fkStatu = idStatu WHERE fkCar = :fkCar AND calDate = :calDate');
@@ -925,6 +931,73 @@ class dbAcces
 			));
 		$tabStatu = $reqStatu->fetchAll();
 		return $tabStatu;
+	}
+
+	//FUNCTION HEADER
+    // <summary>
+    // Delete one carStatu
+    // </summary>
+    //<var name=idCar>Id of the car to delete</var>
+    //<var name=date>Date of the line to delete</var>
+	public function deleteCarStatu($idCar, $date)
+	{
+		$reqStatu = $this->db->prepare('DELETE FROM t_carcalender WHERE fkCar = :fkCar AND calDate = :calDate');
+		$reqStatu->execute(array(
+			'fkCar' => $idCar,
+			'calDate' => $date
+			));
+		$reqStatu->closeCursor();
+	}
+
+	//FUNCTION HEADER
+    // <summary>
+    // Check if the statu has to be update or created and update or create it
+    // </summary>
+    //<var name=idCar>Id of the car to check</var>
+    //<var name=date>Date of the line to check</var>
+    //<var name=statu>Statu of the car</var>
+	public function addCarStatu($idCar, $date, $statu)
+	{
+		$reqStatu = $this->db->prepare('SELECT fkStatu FROM t_carcalender WHERE fkCar = :fkCar AND calDate = :calDate');
+		$reqStatu->execute(array(
+			'fkCar' => $idCar,
+			'calDate' => $date
+			));
+		$tabStatu = $reqStatu->fetchAll();
+		$reqStatu->closeCursor();
+
+		//If the request isn't empty and the current statu = new statu , update. Else, create new entry in the db
+		if(count($tabStatu) !== 0)
+		{
+			if($tabStatu[0]['fkStatu'] !== $statu)
+			{
+				$reqUpdateStatu = $this->db->prepare('UPDATE t_carcalender SET fkStatu = :fkStatu WHERE fkCar = :fkCar AND calDate = :calDate');
+				$reqUpdateStatu->execute(array(
+					'fkStatu' => $statu,
+					'fkCar' => $idCar,
+					'calDate' => $date
+					));
+				$reqUpdateStatu->closeCursor();
+			}
+		}
+		elseif(count($tabStatu) == 0)
+		{
+			$this->addOneCarStatu($idCar, $date, $statu);
+		}
+	}
+
+	//FUNCTION HEADER
+    // <summary>
+    // Function to add a car statu in the calender
+    // </summary>
+    //<var name=idCar>Id of the car to check</var>
+    //<var name=date>Date of the line to check</var>
+    //<var name=statu>Statu of the car</var>
+	private function addOneCarStatu($idCar, $date, $statu)
+	{
+		$reqAddStatu = $this->db->prepare('INSERT INTO t_carcalender (idCarcalender, calDate, fkCar, fkStatu) VALUES(NULL, "'.$date.'", '.$idCar.', '.$statu.')');
+		$reqAddStatu->execute();
+		$reqAddStatu->closeCursor();
 	}
 
 }
