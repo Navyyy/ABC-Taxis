@@ -443,7 +443,7 @@ if(isset($_SESSION['login']))
 
                             </div>
 
-                            <button type="submit" class="btn btn-primary btn-block">Ajouter le service</button>
+                            <button type="submit" class="btn btn-primary btn-block">Ajouter la remarque</button>
 
                         </form>
 

@@ -265,6 +265,12 @@ table{
 	padding:2px;
 }
 
+.panel-car-planning{
+	width:250px;
+	padding:5px;
+	margin:5px;
+	float:right;
+}
 
 @keyframes turn{
 	0%{

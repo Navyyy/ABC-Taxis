@@ -866,11 +866,41 @@ class dbAcces
 		$reqValidateNote->closeCursor();
 	}
 
+	//FUNCTION HEADER
+    // <summary>
+    // Delete a note
+    // </summary>
+    //<var name="idNote">id of the note to delete</var>
 	public function deleteNote($idNote)
 	{
 		$reqDeleteNote = $this->db->prepare('DELETE FROM t_note WHERE idNote ='.$idNote);
 		$reqDeleteNote->execute();
 		$reqDeleteNote->closeCursor();
+	}
+
+	//FUNCTION HEADER
+    // <summary>
+    // Update the last date used in the db
+    // </summary>
+    //<var name="date">New date</var>
+	public function updateDateCar($date)
+	{
+		$reqDate = $this->db->prepare('UPDATE t_dateCar SET datDate = "'.$date.'" WHERE idDate = 1');
+		$reqDate->execute();
+		$reqDate->closeCursor();
+	}
+
+	//FUNCTION HEADER
+    // <summary>
+    // Get the last date used to print the planning
+    // </summary>
+    //<return>Return the last date used</return>
+	public function getDateCar()
+	{
+		$reqDate = $this->db->query('SELECT datDate FROM t_dateCar');
+		$tabDate = $reqDate->fetchAll();
+		$reqDate->closeCursor();
+		return $tabDate;
 	}
 
 }

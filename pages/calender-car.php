@@ -31,13 +31,25 @@ if(isset($_SESSION['login']) AND $_SESSION['login'] == 'admin')
             <!--Links for CSS, javascript, bootstrap-->
             <link href="../css/bootstrap.min.css" rel="stylesheet">
             <link href="../css/css-perso.css" rel="stylesheet">
-            <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.min.css" />
-            <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker3.min.css" />
+
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0">
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
             <script src="../js/bootstrap.min.js"></script>
             <script src="../js/js-perso.js"></script>
+
+            <!--______Link fo datePicker_____-->
+            <!--  jQuery -->
+            <script type="text/javascript" src="../js/jquery-1.11.3.min.js"></script>
+
+            <!-- Isolated Version of Bootstrap, not needed if your site already uses Bootstrap -->
+            <link rel="stylesheet" href="../css/bootstrap-iso.css" />
+
+            <!-- Bootstrap Date-Picker Plugin -->
+            <script type="text/javascript" src="../js/bootstrap-datepicker.min.js"></script>
+            <link rel="stylesheet" href="../css/bootstrap-datepicker3.css"/>
+            <!--______7Link fo datePicker_____-->
+
 
             <link rel="icon" href="http://www.abctaxis.ch/favicon.png">
 
@@ -46,15 +58,38 @@ if(isset($_SESSION['login']) AND $_SESSION['login'] == 'admin')
 
         <body id="body-anim-in">
             <a href="www.abctaxis.ch"><img src="./../pictures/logo-abc.png" alt="logo ABC Taxi"/></a>
-            <div class="date-select">
-                <form action="date.php" method="post">
-                    <?php
-                        $function->getListMonth();
-                        $function->getListYear();
-                    ?>
-                    <input type="submit" class="btn btn-primary btn-block">
+
+            <!--______Div with datePicker_____-->
+            <div class="panel panel-car-planning">
+                <!--Form where write the date-->
+                <form method="post" action="car-date.php">
+                    <div class="form-group"> <!-- Date input -->
+                        <input readOnly class="form-control" id="date" name="date" placeholder="Date AAAA-MM-JJ" type="text"/>
+                    </div>
+                    <div class="form-group"> <!-- Submit button -->
+                        <button class="btn btn-primary btn-block" name="submit" type="submit">Submit</button>
+                    </div>
                 </form>
+                <!--/Form where write the date-->
+
+                <!--Script to print the datePicker-->
+                <script>
+                    $(document).ready(function(){
+                      var date_input=$('input[name="date"]'); //our date input has the name "date"
+                      var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
+                      var options={
+                        format: 'yyyy-mm-dd',
+                        container: container,
+                        todayHighlight: true,
+                        autoclose: true,
+                      };
+                      date_input.datepicker(options);
+                    })
+                </script>
+                <!--/Script to print the datePicker-->
             </div>
+            <!--______/Div with datePicker_____-->
+
             <p></p>
 
             <!--____________________NAVBAR__________________________-->
@@ -102,39 +137,12 @@ if(isset($_SESSION['login']) AND $_SESSION['login'] == 'admin')
 
             <!--________________Calender________________________-->
 
-            <div class="panel">
-
 
                 <?php
 
-                /*$date = strtotime($selectedYear.'-'.$selectedMonth.'-01');
+                $tabDate = $function->getDateCar();
 
-                //Loop that browse all day of the selected month
-                while(date('m',$date) <= $selectedMonth AND date('Y',$date) <= $selectedYear)
-                {
-                    //Replace day from 0-6 to 1-7
-                    $w = str_replace('0','7',date('w',$date));
-
-                    //Number of the day
-                    $d = date('j',$date);
-
-                    $tabDay = array("Lu", "Ma", "Me", "Je", "Ve", "Sa", "Di");
-
-                    echo '<span class="numDaySpan">';
-                    echo '<a class="numDay">'.$tabDay[date('w',$date)].'.'.$d.'</a>';
-                    echo '</span>';
-
-
-                    //If it's the last sunday of october + 25h else + 24h
-                    if($selectedMonth == 10 AND $d == 7 AND date('m',$date+7*25*2600)!==10)
-                    {
-                        $date = $date + 25*3600;
-                    }
-                    else
-                    {
-                        $date = $date + 24*3600;
-                    }
-                }*/
+                
 
                 ?>
 
