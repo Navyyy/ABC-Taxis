@@ -201,7 +201,21 @@ if(isset($_SESSION['login']) AND $_SESSION['login'] == 'admin')
                                     {
                                         echo '<th class="plan-car-list-th">';
 
-                                            echo '<select onchange="colorCar(this)" class="plan-car-list" name="'.$car['idCar'].'-'.date('H-i',$dateVar).'">';
+                                            //Get the statu of the car at the current date
+                                            $tabCurrentStatu = $function->getCarStatu($car['idCar'], date('Y-m-d H:i',$dateVar));
+
+                                            //If the tab isn't empty, write the select with back color and the selected option. else write select without back color and without option
+                                            if(count($tabCurrentStatu) !== 0)
+                                            {
+                                                echo '<select style="background-color:'.$tabCurrentStatu[0]['staBackColor'].'" onchange="colorCar(this)" class="plan-car-list" name="'.$car['idCar'].'-'.date('H-i',$dateVar).'">';
+
+                                                    echo '<option value="'.$tabCurrentStatu[0]['idStatu'].'" style="background-color:'.$tabCurrentStatu[0]['staBackColor'].'">&nbsp;</option>';
+                                            }
+                                            else
+                                            {
+                                                echo '<select onchange="colorCar(this)" class="plan-car-list" name="'.$car['idCar'].'-'.date('H-i',$dateVar).'">';
+                                            }
+
                                                 echo '<option value="empty" style="background-color:white;">&nbsp;</option>';
                                                 foreach($tabStatu as $statu)
                                                 {

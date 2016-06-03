@@ -916,6 +916,17 @@ class dbAcces
 		return $tabStatu;
 	}
 
+	public function getCarStatu($idCar, $date)
+	{
+		$reqStatu = $this->db->prepare('SELECT staBackColor, idStatu FROM t_carcalender INNER JOIN t_statu ON fkStatu = idStatu WHERE fkCar = :fkCar AND calDate = :calDate');
+		$reqStatu->execute(array(
+			'fkCar' => $idCar,
+			'calDate' => $date
+			));
+		$tabStatu = $reqStatu->fetchAll();
+		return $tabStatu;
+	}
+
 }
 
 ?>
