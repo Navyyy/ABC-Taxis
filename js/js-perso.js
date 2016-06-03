@@ -101,6 +101,20 @@ function color(select)
 	}
 }
 
+function colorCar(select)
+{
+	//If the color is white, select color = transparent. Else select color = selected option color
+	if(select.options[select.selectedIndex].style['background-color'] == 'white')
+	{
+		select.style['background-color'] = 'transparent'
+	}
+	else
+	{
+		select.style['background-color'] = select.options[select.selectedIndex].style['background-color']
+	}
+
+}
+
 //Function to confirm the suppression of a member
 function checkDelete()
 {

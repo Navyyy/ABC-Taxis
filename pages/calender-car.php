@@ -67,7 +67,7 @@ if(isset($_SESSION['login']) AND $_SESSION['login'] == 'admin')
                         <input readOnly class="form-control" id="date" name="date" placeholder="Date AAAA-MM-JJ" type="text"/>
                     </div>
                     <!-- Submit button -->
-                    <button class="btn btn-primary btn-block" name="submit" type="submit">Submit</button>
+                    <button class="btn btn-primary btn-block" name="submit" type="submit">Valider</button>
                 </form>
                 <!--/Form where write the date-->
 
@@ -145,7 +145,7 @@ if(isset($_SESSION['login']) AND $_SESSION['login'] == 'admin')
                 $tabCar = $function->getAllCar();
 
                 //Get all the statu
-
+                $tabStatu = $function->getAllStatu();
 
                 ?>
 
@@ -160,8 +160,11 @@ if(isset($_SESSION['login']) AND $_SESSION['login'] == 'admin')
                         <thead>
                             <tr>
                                 <?php
+
+                                echo '<th colspan="4" class="plan-car-date-head"><button type="submit" onclick="annim()" id="button-save"><span class="glyphicon glyphicon-save"></span>Save</button></th>';
+
                                 //Print the date at the top of the table
-                                echo '<th class="plan-car-date-head" colspan="'.(count($tabCar)+1).'">'.$tabDate[0]['datDate'].'</th>';
+                                echo '<th class="plan-car-date-head" colspan="'.(count($tabCar)-3).'">'.$tabDate[0]['datDate'].'</th>';
                                 ?>
                             </tr>
                             <tr>
@@ -181,7 +184,6 @@ if(isset($_SESSION['login']) AND $_SESSION['login'] == 'admin')
 
                         <!--Body of the table-->
                         <tbody>
-
                             <?php
                             //Store date + hour in a var (one stat to keep start hour and one var for the loop)
                             $dateStat = strtotime($tabDate[0]['datDate'].' 04:30:00');
@@ -194,6 +196,22 @@ if(isset($_SESSION['login']) AND $_SESSION['login'] == 'admin')
                                 //echo date('H:i',$dateVar).'<br/>';
                                 echo '<tr>';
                                     echo '<th class="hour-head">'.date('H:i',$dateVar).'</th>';
+
+                                    foreach($tabCar as $car)
+                                    {
+                                        echo '<th class="plan-car-list-th">';
+
+                                            echo '<select onchange="colorCar(this)" class="plan-car-list" name="'.$car['idCar'].'-'.date('H-i',$dateVar).'">';
+                                                echo '<option value="empty" style="background-color:white;">&nbsp;</option>';
+                                                foreach($tabStatu as $statu)
+                                                {
+                                                    echo '<option value="'.$statu['idStatu'].'" style="background-color:'.$statu['staBackColor'].';">&nbsp;</option>';
+                                                }
+                                            echo '</select>';
+
+                                        echo '</th>';
+                                    }
+
                                 echo '</tr>';
 
                                 //Increment datVar value (+ 1/2 hour)

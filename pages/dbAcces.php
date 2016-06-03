@@ -903,6 +903,19 @@ class dbAcces
 		return $tabDate;
 	}
 
+	//FUNCTION HEADER
+    // <summary>
+    // Get all the statu
+    // </summary>
+    //<return>Return a table with all the statu</return>
+	public function getAllStatu()
+	{
+		$reqStatu = $this->db->query('SELECT * FROM t_statu');
+		$tabStatu = $reqStatu->fetchAll();
+		$reqStatu->closeCursor();
+		return $tabStatu;
+	}
+
 }
 
 ?>

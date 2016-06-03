@@ -273,7 +273,7 @@ table{
 }
 
 .plan-car-date-head{
-	font-size:22px;
+	font-size:25px;
 	font-weight:bolder;
 	border:none;
 	border-bottom:1px solid black;
@@ -289,6 +289,16 @@ table{
 	font-variant:normal;
 	font-size:16px;
 	width:5%;
+}
+
+.plan-car-list{
+	display:block;
+	border:1px solid transparent;
+	background-color: transparent;
+	-webkit-appearance:none;
+	-moz-appearance:none;
+	width:100%;
+	height:100%;
 }
 
 @keyframes turn{
