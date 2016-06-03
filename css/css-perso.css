@@ -272,6 +272,25 @@ table{
 	float:right;
 }
 
+.plan-car-date-head{
+	font-size:22px;
+	font-weight:bolder;
+	border:none;
+	border-bottom:1px solid black;
+}
+
+.plan-car-head{
+	font-weight:bold;
+	font-size:12px;
+	font-variant: small-caps;
+}
+
+.date-head{
+	font-variant:normal;
+	font-size:16px;
+	width:5%;
+}
+
 @keyframes turn{
 	0%{
 		transform: rotate(0deg);

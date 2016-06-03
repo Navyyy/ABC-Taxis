@@ -66,9 +66,8 @@ if(isset($_SESSION['login']) AND $_SESSION['login'] == 'admin')
                     <div class="form-group"> <!-- Date input -->
                         <input readOnly class="form-control" id="date" name="date" placeholder="Date AAAA-MM-JJ" type="text"/>
                     </div>
-                    <div class="form-group"> <!-- Submit button -->
-                        <button class="btn btn-primary btn-block" name="submit" type="submit">Submit</button>
-                    </div>
+                    <!-- Submit button -->
+                    <button class="btn btn-primary btn-block" name="submit" type="submit">Submit</button>
                 </form>
                 <!--/Form where write the date-->
 
@@ -139,12 +138,78 @@ if(isset($_SESSION['login']) AND $_SESSION['login'] == 'admin')
 
 
                 <?php
-
+                //Get the laste date used
                 $tabDate = $function->getDateCar();
 
-                
+                //Get all the cars
+                $tabCar = $function->getAllCar();
+
+                //Get all the statu
+
 
                 ?>
+
+                <table id="plan-car-tab">
+                    <form method="post">
+
+                        <?php
+                            echo '<input type="hidden" name="selectedDate" value="'.$tabDate[0]['datDate'].'">';
+                        ?>
+
+                        <!--Header of the table-->
+                        <thead>
+                            <tr>
+                                <?php
+                                //Print the date at the top of the table
+                                echo '<th class="plan-car-date-head" colspan="'.(count($tabCar)+1).'">'.$tabDate[0]['datDate'].'</th>';
+                                ?>
+                            </tr>
+                            <tr>
+                                <th class="plan-car-head date-head">Heure</th>
+                                <?php
+
+                                //Loop to write all registration in the header
+                                foreach($tabCar as $car)
+                                {
+                                    echo '<th class="plan-car-head">'.wordwrap ($car['carRegistration'], 1, '<br/>', 1).'</th>';
+                                }
+
+                                ?>
+                            </tr>
+                        </thead>
+                        <!--/Header of the table-->
+
+                        <!--Body of the table-->
+                        <tbody>
+
+                            <?php
+                            //Store date + hour in a var (one stat to keep start hour and one var for the loop)
+                            $dateStat = strtotime($tabDate[0]['datDate'].' 04:30:00');
+                            $dateVar = strtotime($tabDate[0]['datDate'].' 04:30:00');
+
+
+                            //While dateVar < dateVar + 24h write the table <tr>
+                            while($dateVar <= ($dateStat + 24*3600))
+                            {
+                                //echo date('H:i',$dateVar).'<br/>';
+                                echo '<tr>';
+                                    echo '<th class="hour-head">'.date('H:i',$dateVar).'</th>';
+                                echo '</tr>';
+
+                                //Increment datVar value (+ 1/2 hour)
+                                $dateVar += 1800;
+                            }
+                            //END while
+                            
+                            ?>
+
+                        </tbody>
+                        <!--/Body of the table-->
+
+                    </form>
+                </table>
+
+                <br/><br/><br/>
 
             </div>
 
