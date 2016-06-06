@@ -110,17 +110,74 @@ if(isset($_SESSION['login']) AND $_SESSION['login'] == 'admin')
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
-                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Ajouter un chauffeur &nbsp;<span class="glyphicon glyphicon-plus"></span></a>
+                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Ajout rapide &nbsp;<span class="glyphicon glyphicon-plus"></span></a>
                             <div class="dropdown-menu" id="add-driver-dropdown">
                                 <form class="form" role="form" method="post" action="add-driver.php" accept-charset="UTF-8" id="login-nav">
+                                    <?php
+                                    //Get the laste date used
+                                    $tabDate = $function->getDateCar();
+
+                                    //Get all the statu
+                                    $tabStatu = $function->getAllStatu();
+
+                                    echo '<input type="hidden" id="selectedDate" name="selectedDate" value="'.$tabDate[0]['datDate'].'">';
+                                    ?>
+
                                     <div class="form-group">
-                                        <label class="sr-only" for="exampleInputEmail2">Nom</label>
-                                        <input type="text" name="surname" class="form-control" placeholder="Nom">
+                                        <label class="sr-only" for="exampleInputEmail2">From</label>
+
+                                        <!--Select with start hour-->
+                                        <select class="form-control" name="startHour">
+                                            <option value="empty">-- De --</option>
+
+                                            <?php
+                                            //Store date + hour in a var (one stat to keep start hour and one var for the loop)
+                                            $dateStat = strtotime($tabDate[0]['datDate'].' 04:30:00');
+                                            $dateVar = strtotime($tabDate[0]['datDate'].' 04:30:00');
+
+                                            //While dateVar < dateVar + 24h write an option
+                                             while($dateVar <= ($dateStat + ((23*3600) + 1800)))
+                                             {
+                                                echo '<option value="'.date('H-i',$dateVar).'">'.date('H:i',$dateVar).'</option>';
+
+                                                //Increment datVar value (+ 1/2 hour)
+                                                $dateVar += 1800;
+                                             }
+                                            ?>
+                                        </select>
+                                        <!--/Select with start hour-->
+
                                     </div>
                                     <div class="form-group">
-                                        <label class="sr-only" for="exampleInputEmail2">Prénom</label>
-                                        <input type="text" name="firstname" class="form-control" placeholder="Prénom">
+                                        
+                                        <!--Select with end hour-->
+
+                                        <select class="form-control" name="endHour">
+                                            <option value="empty">-- À --</option>
+
+                                            <?php
+                                            //Reset datevar
+                                            $dateVar = strtotime($tabDate[0]['datDate'].' 04:30:00');
+
+                                            //While dateVar < dateVar + 24h write an option
+                                             while($dateVar <= ($dateStat + ((23*3600) + 1800)))
+                                             {
+                                                echo '<option value="'.date('H-i',$dateVar).'">'.date('H:i',$dateVar).'</option>';
+
+                                                //Increment datVar value (+ 1/2 hour)
+                                                $dateVar += 1800;
+                                             }
+                                            ?>
+                                        </select>
+
+                                        <!--/Select with end hour-->
+
                                     </div>
+
+                                    <div class="form-group">
+
+                                    </div>
+
                                     <div class="form-group">
                                         <button type="submit" class="btn btn-primary btn-block">Valider</button>
                                     </div>
@@ -138,14 +195,9 @@ if(isset($_SESSION['login']) AND $_SESSION['login'] == 'admin')
 
 
                 <?php
-                //Get the laste date used
-                $tabDate = $function->getDateCar();
 
                 //Get all the cars
                 $tabCar = $function->getAllCar();
-
-                //Get all the statu
-                $tabStatu = $function->getAllStatu();
 
                 ?>
 
@@ -153,18 +205,15 @@ if(isset($_SESSION['login']) AND $_SESSION['login'] == 'admin')
                     <form method="post" action="post-car-calender.php">
 
                         <?php
-                            echo '<input type="hidden" name="selectedDate" value="'.$tabDate[0]['datDate'].'">';
+                            echo '<input type="hidden" id="selectedDate" name="selectedDate" value="'.$tabDate[0]['datDate'].'">';
                         ?>
 
                         <!--Header of the table-->
                         <thead>
                             <tr>
                                 <?php
-
-                                echo '<th colspan="4" class="plan-car-date-head"><button type="submit" onclick="annim()" id="button-save"><span class="glyphicon glyphicon-save"></span>Save</button></th>';
-
                                 //Print the date at the top of the table
-                                echo '<th class="plan-car-date-head" colspan="'.(count($tabCar)-3).'">'.$tabDate[0]['datDate'].'</th>';
+                                echo '<th class="plan-car-date-head" colspan="'.(count($tabCar)+1).'">'.$tabDate[0]['datDate'].'</th>';
                                 ?>
                             </tr>
                             <tr>
@@ -185,8 +234,7 @@ if(isset($_SESSION['login']) AND $_SESSION['login'] == 'admin')
                         <!--Body of the table-->
                         <tbody>
                             <?php
-                            //Store date + hour in a var (one stat to keep start hour and one var for the loop)
-                            $dateStat = strtotime($tabDate[0]['datDate'].' 04:30:00');
+                            //Reset dateVar
                             $dateVar = strtotime($tabDate[0]['datDate'].' 04:30:00');
 
 
@@ -207,13 +255,13 @@ if(isset($_SESSION['login']) AND $_SESSION['login'] == 'admin')
                                             //If the tab isn't empty, write the select with back color and the selected option. else write select without back color and without option
                                             if(count($tabCurrentStatu) !== 0)
                                             {
-                                                echo '<select style="background-color:'.$tabCurrentStatu[0]['staBackColor'].'" onchange="colorCar(this)" class="plan-car-list" name="'.$car['idCar'].'-'.date('H-i',$dateVar).'">';
+                                                echo '<select style="background-color:'.$tabCurrentStatu[0]['staBackColor'].'" onchange="colorCar(this); addStatu(this);" class="plan-car-list" name="'.$car['idCar'].'-'.date('H-i',$dateVar).'">';
 
                                                     echo '<option value="'.$tabCurrentStatu[0]['idStatu'].'" style="background-color:'.$tabCurrentStatu[0]['staBackColor'].'">&nbsp;</option>';
                                             }
                                             else
                                             {
-                                                echo '<select onchange="colorCar(this)" class="plan-car-list" name="'.$car['idCar'].'-'.date('H-i',$dateVar).'">';
+                                                echo '<select onchange="colorCar(this); addStatu(this);" class="plan-car-list" name="'.$car['idCar'].'-'.date('H-i',$dateVar).'">';
                                             }
 
                                                 echo '<option value="empty" style="background-color:white;">&nbsp;</option>';
