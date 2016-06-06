@@ -72,7 +72,9 @@ if(isset($_SESSION['login']) AND $_SESSION['login'] == 'admin')
                         <li><a href="./list-car.php"><span class="glyphicon glyphicon-road">&nbsp;</span>Liste véhicules</a></li>
                         <li><a href="./calender-car.php"><span class="glyphicon glyphicon-calendar">&nbsp;</span>Planning véhicules</a></li>
                     </ul>
+
                     <ul class="nav navbar-nav navbar-right">
+                        <li><a href="./stat-driver.php"><span class="glyphicon glyphicon-stats">&nbsp;</span>Statistiques</a></li>
                         <li class="dropdown">
                              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Ajouter un chauffeur &nbsp;<span class="glyphicon glyphicon-plus"></span></a>
                             <div class="dropdown-menu" id="add-driver-dropdown">
