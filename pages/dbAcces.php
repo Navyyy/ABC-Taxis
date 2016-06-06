@@ -1000,6 +1000,31 @@ class dbAcces
 		$reqAddStatu->closeCursor();
 	}
 
+	//FUNCTION HEADER
+    // <summary>
+    // Function to add a statu in the db
+    // </summary>
+    //<var name=staName>Name of the statu</var>
+    //<var name=staBackColor>Background color of the statu</var>
+    //<var name=staForeColor>Foreground color of the statu</var>
+	public function addStatu($staName, $staBackColor, $staForeColor)
+	{
+		$reqAddStatu = $this->db->prepare('INSERT INTO t_statu (idStatu, staBackColor, staForeColor, staName) VALUES(NULL, "'.$staBackColor.'", "'.$staForeColor.'", "'.$staName.'")');
+		$reqAddStatu->execute();
+		$reqAddStatu->closeCursor();
+	}
+
+	//FUNCTION HEADER
+    // <summary>
+    // Function to delete a statu in the db
+    // </summary>
+	public function deleteStatu($idStatu)
+	{
+		$reqDelStatu = $this->db->prepare('DELETE FROM t_statu WHERE idStatu ='.$idStatu);
+		$reqDelStatu->execute();
+		$reqDelStatu->closeCursor();
+	}
+
 }
 
 ?>

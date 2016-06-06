@@ -22,6 +22,15 @@ if(isset($_SESSION['login']) AND $_SESSION['login'] == 'admin')
     $selectedMonth = $function->getSelectedMonth();
     $selectedYear = $function->getSelectedYear();
 
+    //Get the laste date used
+    $tabDate = $function->getDateCar();
+
+    //Get all the statu
+    $tabStatu = $function->getAllStatu();
+
+    //Get all the cars
+    $tabCar = $function->getAllCar();
+
     ?>
 
     <!DOCTYPE html>
@@ -109,17 +118,40 @@ if(isset($_SESSION['login']) AND $_SESSION['login'] == 'admin')
                         <li class="active"><a href="#"><span class="glyphicon glyphicon-calendar">&nbsp;</span>Planning véhicules</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
+
+                        <li class="dropdown">
+                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Ajouter un statut &nbsp;<span class="glyphicon glyphicon-plus"></span></a>
+                            <div class="dropdown-menu" id="add-driver-dropdown">
+
+                                <form class="form" method="post" action="add-statu.php" id="login-nav">
+
+                                    <div class="form-group">
+                                        <input type="text" name="staName" placeholder="Nom du statut" class="form-control">
+                                    </div>
+
+                                    <div class="form-group">
+                                        Couleur de fond :
+                                        <input type="color" name="staBackColor" class="form-control">
+                                    </div>
+
+                                    <div class="form-group">
+                                        Couleur de texte :
+                                        <input type="color" name="staForeColor" class="form-control">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-primary btn-block">Valider</button>
+                                    </div>
+
+                                </form>
+                                   
+                            </div>
+                        </li>
                         <li class="dropdown">
                              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Ajout rapide &nbsp;<span class="glyphicon glyphicon-plus"></span></a>
                             <div class="dropdown-menu" id="add-driver-dropdown">
-                                <form class="form" role="form" method="post" action="add-driver.php" accept-charset="UTF-8" id="login-nav">
+                                <form class="form" role="form" method="post" action="fast-add-statu.php" accept-charset="UTF-8" id="login-nav">
                                     <?php
-                                    //Get the laste date used
-                                    $tabDate = $function->getDateCar();
-
-                                    //Get all the statu
-                                    $tabStatu = $function->getAllStatu();
-
                                     echo '<input type="hidden" id="selectedDate" name="selectedDate" value="'.$tabDate[0]['datDate'].'">';
                                     ?>
 
@@ -138,7 +170,7 @@ if(isset($_SESSION['login']) AND $_SESSION['login'] == 'admin')
                                             //While dateVar < dateVar + 24h write an option
                                              while($dateVar <= ($dateStat + ((23*3600) + 1800)))
                                              {
-                                                echo '<option value="'.date('H-i',$dateVar).'">'.date('H:i',$dateVar).'</option>';
+                                                echo '<option value="'.date('H:i',$dateVar).'">'.date('H:i',$dateVar).'</option>';
 
                                                 //Increment datVar value (+ 1/2 hour)
                                                 $dateVar += 1800;
@@ -162,7 +194,7 @@ if(isset($_SESSION['login']) AND $_SESSION['login'] == 'admin')
                                             //While dateVar < dateVar + 24h write an option
                                              while($dateVar <= ($dateStat + ((23*3600) + 1800)))
                                              {
-                                                echo '<option value="'.date('H-i',$dateVar).'">'.date('H:i',$dateVar).'</option>';
+                                                echo '<option value="'.date('H:i',$dateVar).'">'.date('H:i',$dateVar).'</option>';
 
                                                 //Increment datVar value (+ 1/2 hour)
                                                 $dateVar += 1800;
@@ -176,14 +208,43 @@ if(isset($_SESSION['login']) AND $_SESSION['login'] == 'admin')
 
                                     <div class="form-group">
 
+                                        <!--Select with all cars-->
+                                        <select class="form-control" name="car">
+                                            <option value="empty">-- Véhicule --</option>
+
+                                            <?php
+                                            foreach($tabCar as $car)
+                                            {
+                                                echo '<option value="'.$car['idCar'].'">'.$car['carRegistration'].'</option>';
+                                            }
+                                            ?>
+                                        </select>
+                                        <!--/Select with all cars-->
+
+                                    </div>
+
+                                    <div class="form-group">
+
+                                        <!--Select with all status-->
+                                        <select onchange="colorCar(this)" class="form-control" name="statu">
+                                            <option value="empty" style="background-color:white">-- Statut --</option>
+                                            <option value="empty" style="background-color:white">DELETE</option>
+
+                                            <?php
+                                            foreach($tabStatu as $statu)
+                                            {
+                                                echo '<option value="'.$statu['idStatu'].'" style="background-color:'.$statu['staBackColor'].';">&nbsp;</option>';
+                                            }
+                                            ?>
+
+                                        </select>
+
                                     </div>
 
                                     <div class="form-group">
                                         <button type="submit" class="btn btn-primary btn-block">Valider</button>
                                     </div>
                                 </form>
-                                <div class="bottom text-center" id="div-join-us">
-                                </div>
                             </div>
                         </li>
                     </ul>
@@ -192,14 +253,6 @@ if(isset($_SESSION['login']) AND $_SESSION['login'] == 'admin')
             <!--____________________/NAVBAR__________________________-->
 
             <!--________________Calender________________________-->
-
-
-                <?php
-
-                //Get all the cars
-                $tabCar = $function->getAllCar();
-
-                ?>
 
                 <table id="plan-car-tab">
                     <form method="post" action="post-car-calender.php">
@@ -214,6 +267,24 @@ if(isset($_SESSION['login']) AND $_SESSION['login'] == 'admin')
                                 <?php
                                 //Print the date at the top of the table
                                 echo '<th class="plan-car-date-head" colspan="'.(count($tabCar)+1).'">'.$tabDate[0]['datDate'].'</th>';
+                                ?>
+                            </tr>
+                            <tr>
+                                <?php
+                                echo '<th class="plan-car-head date-head th-span" colspan="'.(count($tabCar)+1).'">';
+
+                                echo '| &nbsp<span class="span-statu" style="background-color:white">supprimer</span>&nbsp; | &nbsp;';
+
+                                foreach($tabStatu as $statu)
+                                {
+                                    echo '<span class="span-statu" style="background-color:'.$statu['staBackColor'].'; color:'.$statu['staForeColor'].';">'.$statu['staName'].'</span>';
+
+                                    echo ' <a onclick="return checkDelete()" href="./delete-statu.php?idStatu='.$statu['idStatu'].'" ><button type="button" class="btn btn-danger btn-xs btn-round"><span class="glyphicon glyphicon-trash"></span></button></a>';
+
+                                    echo '&nbsp; | &nbsp;';
+                                }
+
+                                echo '</th>';
                                 ?>
                             </tr>
                             <tr>

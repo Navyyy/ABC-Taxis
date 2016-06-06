@@ -1,7 +1,7 @@
 <?php
 /*
 Author : Yvan Cochet
-Date : 01.06.2016
+Date : 06.06.2016
 Summary : Page to process the adding or deleting of status
 */
 
