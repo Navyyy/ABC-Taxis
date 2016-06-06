@@ -369,20 +369,37 @@ class dbAcces
     //<var name="date">Date to use</var>
 	public function getColspan($date)
 	{
-		$nbDay = date('t',$date);
+		$colspan = 0;
 
-		if(($nbDay/7) < 4.3)
-		{
-			$nbWeek = floor($nbDay/7);
-		}
-		else
-		{
-			$nbWeek = ceil($nbDay/7);
-		}
+		$month = date('m',$date);
 
-		//$nbWeek = ceil($nbDay/7);
-        $result = $nbDay + $nbWeek;
-        return $result;
+		$year = date('Y',$date);
+
+		while(date('m',$date) <= $month AND date('Y',$date) <= $year)
+		{
+			//Replace day from 0-6 to 1-7
+            $w = str_replace('0','7',date('w',$date));
+
+            if($w == 7 AND date('m', $date+24*3600) == $month)
+            {
+            	$colspan += 2;
+            }
+            else
+            {
+            	$colspan += 1;
+            }
+
+            //If it's the last sunday of october + 25h else + 24h
+            if($month == 10 AND $d == 7 AND date('m',$date+7*25*2600)!==10)
+            {
+                $date = $date + 25*3600;
+            }
+            else
+            {
+                $date = $date + 24*3600;
+            }
+		}
+        return $colspan;
 	}
 
 	//FUNCTION HEADER
