@@ -142,7 +142,6 @@ if(isset($_SESSION['login']))
                 <table class="table">
                     <thead>
                         <tr>
-                            <th>#</th>
                             <th>Immatriculation</th>
                             <th>Marque</th>
                             <th>Sièges</th>
@@ -161,8 +160,7 @@ if(isset($_SESSION['login']))
                         foreach($carTab as $car)
                         {
                             echo '<tr>';
-                                echo '<td>'.$car['idCar'].'</td>';
-                                echo '<td>'.$car['carRegistration'].'</td>';
+                                echo '<td class="td-registration">'.$car['carRegistration'].'</td>';
 
                                 //Write carbrand only if it's not empty
                                 if($car['carBrand'] == '')

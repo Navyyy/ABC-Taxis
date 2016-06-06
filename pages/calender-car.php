@@ -8,7 +8,7 @@ Summary : driver planning page for ABCTaxi's site
 
 session_start();
 
-if(isset($_SESSION['login']) AND $_SESSION['login'] == 'admin')
+if(isset($_SESSION['login']))
 {
 
     include('dbAcces.php');
@@ -30,6 +30,9 @@ if(isset($_SESSION['login']) AND $_SESSION['login'] == 'admin')
 
     //Get all the cars
     $tabCar = $function->getAllCar();
+
+    //Store date + hour in a var to keep the start hour
+    $dateStat = strtotime($tabDate[0]['datDate'].' 04:30:00');
 
     ?>
 
@@ -117,137 +120,144 @@ if(isset($_SESSION['login']) AND $_SESSION['login'] == 'admin')
                         <li><a href="./list-car.php"><span class="glyphicon glyphicon-road">&nbsp;</span>Liste véhicules</a></li>
                         <li class="active"><a href="#"><span class="glyphicon glyphicon-calendar">&nbsp;</span>Planning véhicules</a></li>
                     </ul>
-                    <ul class="nav navbar-nav navbar-right">
 
-                        <li class="dropdown">
-                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Ajouter un statut &nbsp;<span class="glyphicon glyphicon-plus"></span></a>
-                            <div class="dropdown-menu" id="add-driver-dropdown">
+                    <?php
+                    //Print the form only if we're logged as admin
+                    if(isset($_SESSION['login']) AND $_SESSION['login'] == 'admin')
+                    {
+                    ?>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li class="dropdown">
+                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Ajouter un statut &nbsp;<span class="glyphicon glyphicon-plus"></span></a>
+                                <div class="dropdown-menu" id="add-driver-dropdown">
 
-                                <form class="form" method="post" action="add-statu.php" id="login-nav">
+                                    <form class="form" method="post" action="add-statu.php" id="login-nav">
 
-                                    <div class="form-group">
-                                        <input type="text" name="staName" placeholder="Nom du statut" class="form-control">
-                                    </div>
+                                        <div class="form-group">
+                                            <input type="text" name="staName" placeholder="Nom du statut" class="form-control">
+                                        </div>
 
-                                    <div class="form-group">
-                                        Couleur de fond :
-                                        <input type="color" name="staBackColor" class="form-control">
-                                    </div>
+                                        <div class="form-group">
+                                            Couleur de fond :
+                                            <input type="color" name="staBackColor" class="form-control">
+                                        </div>
 
-                                    <div class="form-group">
-                                        Couleur de texte :
-                                        <input type="color" name="staForeColor" class="form-control">
-                                    </div>
+                                        <div class="form-group">
+                                            Couleur de texte :
+                                            <input type="color" name="staForeColor" class="form-control">
+                                        </div>
 
-                                    <div class="form-group">
-                                        <button type="submit" class="btn btn-primary btn-block">Valider</button>
-                                    </div>
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-primary btn-block">Valider</button>
+                                        </div>
 
-                                </form>
-                                   
-                            </div>
-                        </li>
-                        <li class="dropdown">
-                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Ajout rapide &nbsp;<span class="glyphicon glyphicon-plus"></span></a>
-                            <div class="dropdown-menu" id="add-driver-dropdown">
-                                <form class="form" role="form" method="post" action="fast-add-statu.php" accept-charset="UTF-8" id="login-nav">
-                                    <?php
-                                    echo '<input type="hidden" id="selectedDate" name="selectedDate" value="'.$tabDate[0]['datDate'].'">';
-                                    ?>
+                                    </form>
+                                       
+                                </div>
+                            </li>
+                            <li class="dropdown">
+                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Ajout rapide &nbsp;<span class="glyphicon glyphicon-plus"></span></a>
+                                <div class="dropdown-menu" id="add-driver-dropdown">
+                                    <form class="form" role="form" method="post" action="fast-add-statu.php" accept-charset="UTF-8" id="login-nav">
+                                        <?php
+                                        echo '<input type="hidden" id="selectedDate" name="selectedDate" value="'.$tabDate[0]['datDate'].'">';
+                                        ?>
 
-                                    <div class="form-group">
-                                        <label class="sr-only" for="exampleInputEmail2">From</label>
+                                        <div class="form-group">
+                                            <label class="sr-only" for="exampleInputEmail2">From</label>
 
-                                        <!--Select with start hour-->
-                                        <select class="form-control" name="startHour">
-                                            <option value="empty">-- De --</option>
+                                            <!--Select with start hour-->
+                                            <select class="form-control" name="startHour">
+                                                <option value="empty">-- De --</option>
 
-                                            <?php
-                                            //Store date + hour in a var (one stat to keep start hour and one var for the loop)
-                                            $dateStat = strtotime($tabDate[0]['datDate'].' 04:30:00');
-                                            $dateVar = strtotime($tabDate[0]['datDate'].' 04:30:00');
+                                                <?php
+                                                //Reset datevar
+                                                $dateVar = strtotime($tabDate[0]['datDate'].' 04:30:00');
 
-                                            //While dateVar < dateVar + 24h write an option
-                                             while($dateVar <= ($dateStat + ((23*3600) + 1800)))
-                                             {
-                                                echo '<option value="'.date('H:i',$dateVar).'">'.date('H:i',$dateVar).'</option>';
+                                                //While dateVar < dateVar + 24h write an option
+                                                 while($dateVar <= ($dateStat + ((23*3600) + 1800)))
+                                                 {
+                                                    echo '<option value="'.date('H:i',$dateVar).'">'.date('H:i',$dateVar).'</option>';
 
-                                                //Increment datVar value (+ 1/2 hour)
-                                                $dateVar += 1800;
-                                             }
-                                            ?>
-                                        </select>
-                                        <!--/Select with start hour-->
+                                                    //Increment datVar value (+ 1/2 hour)
+                                                    $dateVar += 1800;
+                                                 }
+                                                ?>
+                                            </select>
+                                            <!--/Select with start hour-->
 
-                                    </div>
-                                    <div class="form-group">
-                                        
-                                        <!--Select with end hour-->
+                                        </div>
+                                        <div class="form-group">
+                                            
+                                            <!--Select with end hour-->
 
-                                        <select class="form-control" name="endHour">
-                                            <option value="empty">-- À --</option>
+                                            <select class="form-control" name="endHour">
+                                                <option value="empty">-- À --</option>
 
-                                            <?php
-                                            //Reset datevar
-                                            $dateVar = strtotime($tabDate[0]['datDate'].' 04:30:00');
+                                                <?php
+                                                //Reset datevar
+                                                $dateVar = strtotime($tabDate[0]['datDate'].' 04:30:00');
 
-                                            //While dateVar < dateVar + 24h write an option
-                                             while($dateVar <= ($dateStat + ((23*3600) + 1800)))
-                                             {
-                                                echo '<option value="'.date('H:i',$dateVar).'">'.date('H:i',$dateVar).'</option>';
+                                                //While dateVar < dateVar + 24h write an option
+                                                 while($dateVar <= ($dateStat + ((23*3600) + 1800)))
+                                                 {
+                                                    echo '<option value="'.date('H:i',$dateVar).'">'.date('H:i',$dateVar).'</option>';
 
-                                                //Increment datVar value (+ 1/2 hour)
-                                                $dateVar += 1800;
-                                             }
-                                            ?>
-                                        </select>
+                                                    //Increment datVar value (+ 1/2 hour)
+                                                    $dateVar += 1800;
+                                                 }
+                                                ?>
+                                            </select>
 
-                                        <!--/Select with end hour-->
+                                            <!--/Select with end hour-->
 
-                                    </div>
+                                        </div>
 
-                                    <div class="form-group">
+                                        <div class="form-group">
 
-                                        <!--Select with all cars-->
-                                        <select class="form-control" name="car">
-                                            <option value="empty">-- Véhicule --</option>
+                                            <!--Select with all cars-->
+                                            <select class="form-control" name="car">
+                                                <option value="empty">-- Véhicule --</option>
 
-                                            <?php
-                                            foreach($tabCar as $car)
-                                            {
-                                                echo '<option value="'.$car['idCar'].'">'.$car['carRegistration'].'</option>';
-                                            }
-                                            ?>
-                                        </select>
-                                        <!--/Select with all cars-->
+                                                <?php
+                                                foreach($tabCar as $car)
+                                                {
+                                                    echo '<option value="'.$car['idCar'].'">'.$car['carRegistration'].'</option>';
+                                                }
+                                                ?>
+                                            </select>
+                                            <!--/Select with all cars-->
 
-                                    </div>
+                                        </div>
 
-                                    <div class="form-group">
+                                        <div class="form-group">
 
-                                        <!--Select with all status-->
-                                        <select onchange="colorCar(this)" class="form-control" name="statu">
-                                            <option value="empty" style="background-color:white">-- Statut --</option>
-                                            <option value="empty" style="background-color:white">DELETE</option>
+                                            <!--Select with all status-->
+                                            <select onchange="colorCar(this)" class="form-control" name="statu">
+                                                <option value="empty" style="background-color:white">-- Statut --</option>
+                                                <option value="empty" style="background-color:white">DELETE</option>
 
-                                            <?php
-                                            foreach($tabStatu as $statu)
-                                            {
-                                                echo '<option value="'.$statu['idStatu'].'" style="background-color:'.$statu['staBackColor'].';">&nbsp;</option>';
-                                            }
-                                            ?>
+                                                <?php
+                                                foreach($tabStatu as $statu)
+                                                {
+                                                    echo '<option value="'.$statu['idStatu'].'" style="background-color:'.$statu['staBackColor'].';">&nbsp;</option>';
+                                                }
+                                                ?>
 
-                                        </select>
+                                            </select>
 
-                                    </div>
+                                        </div>
 
-                                    <div class="form-group">
-                                        <button type="submit" class="btn btn-primary btn-block">Valider</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </li>
-                    </ul>
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-primary btn-block">Valider</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </li>
+                        </ul>
+                    <?php
+                    }
+                    ?>
                 </div>
             </nav>
             <!--____________________/NAVBAR__________________________-->
@@ -279,7 +289,10 @@ if(isset($_SESSION['login']) AND $_SESSION['login'] == 'admin')
                                 {
                                     echo '<span class="span-statu" style="background-color:'.$statu['staBackColor'].'; color:'.$statu['staForeColor'].';">'.$statu['staName'].'</span>';
 
-                                    echo ' <a onclick="return checkDelete()" href="./delete-statu.php?idStatu='.$statu['idStatu'].'" ><button type="button" class="btn btn-danger btn-xs btn-round"><span class="glyphicon glyphicon-trash"></span></button></a>';
+                                    if(isset($_SESSION['login']) AND $_SESSION['login'] == 'admin')
+                                    {
+                                        echo ' <a onclick="return checkDelete()" href="./delete-statu.php?idStatu='.$statu['idStatu'].'" ><button type="button" class="btn btn-danger btn-xs btn-round"><span class="glyphicon glyphicon-trash"></span></button></a>';
+                                    }
 
                                     echo '&nbsp; | &nbsp;';
                                 }
@@ -318,31 +331,47 @@ if(isset($_SESSION['login']) AND $_SESSION['login'] == 'admin')
 
                                     foreach($tabCar as $car)
                                     {
-                                        echo '<th class="plan-car-list-th">';
 
-                                            //Get the statu of the car at the current date
-                                            $tabCurrentStatu = $function->getCarStatu($car['idCar'], date('Y-m-d H:i',$dateVar));
+                                        //Get the statu of the car at the current date
+                                        $tabCurrentStatu = $function->getCarStatu($car['idCar'], date('Y-m-d H:i',$dateVar));
 
-                                            //If the tab isn't empty, write the select with back color and the selected option. else write select without back color and without option
+                                        //Print the lists only if we're logged as admin
+                                        if(isset($_SESSION['login']) AND $_SESSION['login'] == 'admin')
+                                        {
+                                            echo '<th class="plan-car-list-th">';
+
+                                                //If the tab isn't empty, write the select with back color and the selected option. else write select without back color and without option
+                                                if(count($tabCurrentStatu) !== 0)
+                                                {
+                                                    echo '<select style="background-color:'.$tabCurrentStatu[0]['staBackColor'].'" onchange="colorCar(this); addStatu(this);" class="plan-car-list" name="'.$car['idCar'].'-'.date('H-i',$dateVar).'">';
+
+                                                        echo '<option value="'.$tabCurrentStatu[0]['idStatu'].'" style="background-color:'.$tabCurrentStatu[0]['staBackColor'].'">&nbsp;</option>';
+                                                }
+                                                else
+                                                {
+                                                    echo '<select onchange="colorCar(this); addStatu(this);" class="plan-car-list" name="'.$car['idCar'].'-'.date('H-i',$dateVar).'">';
+                                                }
+
+                                                    echo '<option value="empty" style="background-color:white;">&nbsp;</option>';
+                                                    foreach($tabStatu as $statu)
+                                                    {
+                                                        echo '<option value="'.$statu['idStatu'].'" style="background-color:'.$statu['staBackColor'].';">&nbsp;</option>';
+                                                    }
+                                                echo '</select>';
+
+                                            echo '</th>';
+                                        }
+                                        else
+                                        {
                                             if(count($tabCurrentStatu) !== 0)
                                             {
-                                                echo '<select style="background-color:'.$tabCurrentStatu[0]['staBackColor'].'" onchange="colorCar(this); addStatu(this);" class="plan-car-list" name="'.$car['idCar'].'-'.date('H-i',$dateVar).'">';
-
-                                                    echo '<option value="'.$tabCurrentStatu[0]['idStatu'].'" style="background-color:'.$tabCurrentStatu[0]['staBackColor'].'">&nbsp;</option>';
+                                                echo '<th style="background-color:'.$tabCurrentStatu[0]['staBackColor'].'" class="plan-car-list-th"></th>';
                                             }
                                             else
                                             {
-                                                echo '<select onchange="colorCar(this); addStatu(this);" class="plan-car-list" name="'.$car['idCar'].'-'.date('H-i',$dateVar).'">';
+                                                echo '<th class="plan-car-list-th"></th>';
                                             }
-
-                                                echo '<option value="empty" style="background-color:white;">&nbsp;</option>';
-                                                foreach($tabStatu as $statu)
-                                                {
-                                                    echo '<option value="'.$statu['idStatu'].'" style="background-color:'.$statu['staBackColor'].';">&nbsp;</option>';
-                                                }
-                                            echo '</select>';
-
-                                        echo '</th>';
+                                        }
                                     }
 
                                 echo '</tr>';

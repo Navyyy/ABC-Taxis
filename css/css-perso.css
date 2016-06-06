@@ -75,6 +75,9 @@ table{
 	padding:10px;
 }
 
+#plan-car-tab th{
+	font-weight:100;
+}
 
 /*CLASS*/
 
@@ -280,13 +283,13 @@ table{
 }
 
 .plan-car-head{
-	font-weight:bold;
+	font-weight:100;
 	font-size:12px;
-	font-variant: small-caps;
 }
 
 .date-head{
 	font-variant:normal;
+	font-weight:bolder;
 	font-size:16px;
 	width:5%;
 }
@@ -313,6 +316,10 @@ table{
 
 .th-span{
 	height:40px;
+}
+
+.td-registration{
+	font-weight:bolder;
 }
 
 @keyframes turn{
