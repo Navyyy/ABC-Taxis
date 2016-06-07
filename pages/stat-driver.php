@@ -38,7 +38,7 @@ if(isset($_SESSION['login']) AND $_SESSION['login'] == 'admin')
             <script src="../js/js-perso.js"></script>
 
             <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-            <script type="text/javascript">
+            <!--<script type="text/javascript">
 		      google.charts.load("current", {packages:["corechart"]});
 
 		      google.charts.setOnLoadCallback(drawChart);
@@ -60,7 +60,7 @@ if(isset($_SESSION['login']) AND $_SESSION['login'] == 'admin')
 		        var chart = new google.visualization.PieChart(document.getElementById('donutWork'));
 		        chart.draw(data, options);
 		      }
-		    </script>
+		    </script><-->
 
             <link rel="icon" href="http://www.abctaxis.ch/favicon.png">
 
@@ -96,7 +96,41 @@ if(isset($_SESSION['login']) AND $_SESSION['login'] == 'admin')
             </nav>
             <!--____________________/NAVBAR__________________________-->
 
-		    <div id="donutWork" style="width: 600px; height: 400px;"></div>
+            <div class="panel default-panel col-md-4">
+                <legend><h2>Informations utilisateur</h2></legend>
+                <form>
+                    <div class="form-group">
+                        <?php
+                        //Get all the drivers to put it in a select
+                        $tabDriver = $function->getAllDriver();
+                        ?>
+                        <select id="select-driver" onchange="getDriverStat()" name="driver" class="form-control">
+                            <?php
+                            foreach($tabDriver as $driver)
+                            {
+                                echo '<option value="'.$driver['idDriver'].'">'.$driver['driName'].'</option>';
+                            }
+                            ?>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <select name="year" onchange="getDriverStat()" id="select-year" class="form-control">
+                            <option value=2016>2016</option>
+                            <option value=2017>2017</option>
+                            <option value=2018>2018</option>
+                            <option value=2019>2019</option>
+                            <option value=2020>2020</option>
+                            <option value=2021>2021</option>
+                            <option value=2022>2022</option>
+                            <option value=2023>2023</option>
+                            <option value=2024>2024</option>
+                            <option value=2025>2025</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+
+		    <div id="driverStat" style="width: 600px; height: 400px; float:right;"></div>
 
 
         </body>

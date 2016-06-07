@@ -741,7 +741,7 @@ class dbAcces
     /// <return>Return table with all drivers</return>
 	public function getAllDriver()
 	{
-		$reqDriver = $this->db->query('SELECT * FROM t_driver');
+		$reqDriver = $this->db->query('SELECT * FROM t_driver ORDER BY driName');
 		$tabDriver = $reqDriver->fetchAll();
 
 		$reqDriver->closeCursor();
@@ -1040,6 +1040,35 @@ class dbAcces
 		$reqDelStatu = $this->db->prepare('DELETE FROM t_statu WHERE idStatu ='.$idStatu);
 		$reqDelStatu->execute();
 		$reqDelStatu->closeCursor();
+	}
+
+	//FUNCTION HEADER
+    // <summary>
+    // Function to get the stat of a driver
+    // </summary>
+    //<var name=idDriver>Id of the driver to check </var>
+    //<var name=year>year of the driver to check</var>
+    //<return>Return a table with all stats</return>
+	public function getDriverStat($idDriver, $year)
+	{
+		//Array to return
+		$arrayCount = array();
+
+		//Get tasks to use it in the loop
+		$reqGetTask = $this->db->query('SELECT idTask, taskName FROM t_task WHERE taskName != "empty"');
+		$tabTask = $reqGetTask->fetchAll();
+
+		foreach($tabTask as $task)
+		{
+			$reqStat = $this->db->prepare('SELECT count("fkTask") as "'.$task['taskName'].'" FROM `t_calender` WHERE fkTask = '.$task['idTask'].' AND calYear = '.$year.' AND fkDriver = '.$idDriver);
+			$reqStat->execute();
+			$countStat = $reqStat->fetchAll();
+
+			//Add value to the table
+			$arrayCount[$task['taskName']] = $countStat[0][$task['taskName']];
+		}
+
+		return $arrayCount;
 	}
 
 }
