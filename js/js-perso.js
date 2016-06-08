@@ -175,19 +175,42 @@ function getDriverStat()
 
 function printDriverStat(table)
 {
-	alert(table)
+	//Convert string to table
+	var tableStat = $.parseJSON(table)
+
+	//Convert data to int and put it in var
+	var aYellow = parseInt(tableStat["a-yellow"])
+	var aBlack = parseInt(tableStat["a-black"])
+	var aRed = parseInt(tableStat["a-red"])
+	var bWhite = parseInt(tableStat["b-white"])
+	var bBlack = parseInt(tableStat["b-black"])
+	var lWhite = parseInt(tableStat["l-white"])
+	var vWhite = parseInt(tableStat["v-white"])
+	var mWhite = parseInt(tableStat["m-white"])
+	var fWhite = parseInt(tableStat["f-white"])
+	var left = parseInt(tableStat["left"])
+	var cWhite = parseInt(tableStat["c-white"])
+	var cBlack = parseInt(tableStat["c-black"])
+
 
 	google.charts.load("current", {packages:["corechart"]});
 
 	google.charts.setOnLoadCallback(drawChart);
 	function drawChart() {
 		var data = google.visualization.arrayToDataTable([
-		['Task', 'Nb tasks in a year'],
-		['Vacances',     4],
-		['Voiture B',      2],
-		['Commute',  2],
-		['Watch TV', 2],
-		['Sleep',    7]
+		    ['Task', 'Nb tasks in a year'],
+		    ['Voiture A ouverture',aYellow],
+		    ['Voiture A fermeture',aBlack],
+		    ['Voiture A', aRed],
+		    ['Voiture B', bWhite],
+		    ['Voiture B fermeture', bBlack],
+		    ['Limousine', lWhite],
+		    ['Vacances', vWhite],
+		    ['Maladie', mWhite],
+		    ['Formation', fWhite],
+		    ['Congé', left],
+		    ['Call despatch jour', cWhite],
+		    ['Call despatch nuit', cBlack]
 		]);
 
 		var options = {
