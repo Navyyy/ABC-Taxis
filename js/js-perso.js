@@ -175,6 +175,7 @@ function getDriverStat()
 
 function printDriverStat(table)
 {
+
 	//Convert string to table
 	var tableStat = $.parseJSON(table)
 
@@ -192,10 +193,12 @@ function printDriverStat(table)
 	var cWhite = parseInt(tableStat["c-white"])
 	var cBlack = parseInt(tableStat["c-black"])
 
-
-	google.charts.load("current", {packages:["corechart"]});
+	var year = document.getElementById("select-year").value
+	var driverSelect = document.getElementById("select-driver")
+	var driver = driverSelect.options[driverSelect.selectedIndex].text
 
 	google.charts.setOnLoadCallback(drawChart);
+
 	function drawChart() {
 		var data = google.visualization.arrayToDataTable([
 		    ['Task', 'Nb tasks in a year'],
@@ -214,14 +217,23 @@ function printDriverStat(table)
 		]);
 
 		var options = {
-		    title: 'Résumé de ... en ...',
-		    pieHole: 0.4,
+		    title: 'Résumé de ' + driver + ' en ' + year,
+		    pieHole: 0.5,
+		    backgroundColor: 'transparent',
+		    fontSize : '18',
 		    };
 
 		var chart = new google.visualization.PieChart(document.getElementById('driverStat'));
 		chart.draw(data, options);
 		}
 
+}
+
+//Function to load the chart only one time (to the load of the body)
+function loadChart()
+{
+	//Load google chart only once
+	google.charts.load('visualization', '1', {'packages':['corechart','table']});
 }
 
 

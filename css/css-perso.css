@@ -79,6 +79,15 @@ table{
 	font-weight:100;
 }
 
+#driverStat
+{
+	width: 1000px; 
+	height: 600px; 
+	float:right;
+	margin-top:-50px;
+}
+
+
 /*CLASS*/
 
 .car-planning-day-name{
@@ -343,6 +352,10 @@ table{
 	}
 
 	nav{
+		display:none;
+	}
+
+	#pnl-mediaPrint{
 		display:none;
 	}
 

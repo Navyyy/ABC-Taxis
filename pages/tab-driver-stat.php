@@ -19,7 +19,9 @@ if(isset($_SESSION['login']) AND $_SESSION['login'] == 'admin')
 
 	$idDriver = $_GET['idDriver'];
 
-	$tabStat = $function->getDriverStat($idDriver, 2016);
+	$year = $_GET['year'];
+
+	$tabStat = $function->getDriverStat($idDriver, $year);
 
 	echo json_encode($tabStat);
 }

@@ -38,36 +38,13 @@ if(isset($_SESSION['login']) AND $_SESSION['login'] == 'admin')
             <script src="../js/js-perso.js"></script>
 
             <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-            <!--<script type="text/javascript">
-		      google.charts.load("current", {packages:["corechart"]});
-
-		      google.charts.setOnLoadCallback(drawChart);
-		      function drawChart() {
-		        var data = google.visualization.arrayToDataTable([
-		          ['Task', 'Nb tasks in a year'],
-		          ['Vacances',     11],
-		          ['Voiture B',      2],
-		          ['Commute',  2],
-		          ['Watch TV', 2],
-		          ['Sleep',    7]
-		        ]);
-
-		        var options = {
-		          title: 'Résumé de ... en ...',
-		          pieHole: 0.4,
-		        };
-
-		        var chart = new google.visualization.PieChart(document.getElementById('donutWork'));
-		        chart.draw(data, options);
-		      }
-		    </script><-->
 
             <link rel="icon" href="http://www.abctaxis.ch/favicon.png">
 
             <title>Planning chauffeurs | ABC Taxis Cochet SA</title>
         </head>
 
-        <body id="body-anim-in">
+        <body id="body-anim-in" onload="loadChart()">
             <a href="www.abctaxis.ch"><img src="./../pictures/logo-abc.png" alt="logo ABC Taxi"/></a>
             <p></p>
 
@@ -96,15 +73,16 @@ if(isset($_SESSION['login']) AND $_SESSION['login'] == 'admin')
             </nav>
             <!--____________________/NAVBAR__________________________-->
 
-            <div class="panel default-panel col-md-4">
+            <div class="panel default-panel col-md-3" id="pnl-mediaPrint">
                 <legend><h2>Informations utilisateur</h2></legend>
-                <form>
+                <form method="POST" action="stat-driver.php">
                     <div class="form-group">
                         <?php
                         //Get all the drivers to put it in a select
                         $tabDriver = $function->getAllDriver();
                         ?>
                         <select id="select-driver" onchange="getDriverStat()" name="driver" class="form-control">
+                            <option value="empty">-- Selectionnez un chauffeur --</option>
                             <?php
                             foreach($tabDriver as $driver)
                             {
@@ -130,7 +108,7 @@ if(isset($_SESSION['login']) AND $_SESSION['login'] == 'admin')
                 </form>
             </div>
 
-		    <div id="driverStat" style="width: 600px; height: 400px; float:right;"></div>
+		    <div id="driverStat"></div>
 
 
         </body>
