@@ -37,7 +37,7 @@ if(isset($_SESSION['login']) AND $_SESSION['login'] == 'admin')
             <script src="../js/bootstrap.min.js"></script>
             <script src="../js/js-perso.js"></script>
 
-            <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+            <script type="text/javascript" src="../js/google-chart.js"></script>
 
             <link rel="icon" href="http://www.abctaxis.ch/favicon.png">
 
