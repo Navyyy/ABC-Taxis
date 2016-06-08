@@ -110,7 +110,6 @@ if(isset($_SESSION['login']) AND $_SESSION['login'] == 'admin')
 
 		    <div id="driverStat"></div>
 
-
         </body>
     </html> 
     <?php

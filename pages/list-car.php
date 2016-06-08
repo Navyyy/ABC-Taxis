@@ -139,18 +139,18 @@ if(isset($_SESSION['login']))
             <!--____________________Car list_________________________-->
             <div class="panel panel-default">
 
-                <table class="table">
-                    <thead>
+                <table id="sort-table" class="table table-hover table-condensed">
+                    <thead class="floating-header">
                         <tr>
-                            <th>Immatriculation</th>
-                            <th>Marque</th>
-                            <th>Sièges</th>
-                            <th>Classe</th>
-                            <th>Info</th>
-                            <th>Actions</td>
+                            <th class="th-head-list-car">Immatriculation</th>
+                            <th class="th-head-list-car">Marque</th>
+                            <th class="th-head-list-car">Sièges</th>
+                            <th class="th-head-list-car">Classe</th>
+                            <th class="th-head-list-car">Info</th>
+                            <th class="th-head-list-car">Actions</td>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody class="floating-body">
 
                         <?php
                         //Function to write all the cars
