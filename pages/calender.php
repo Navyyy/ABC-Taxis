@@ -77,7 +77,7 @@ if(isset($_SESSION['login']) AND $_SESSION['login'] == 'admin')
                         <li><a href="./stat-driver.php"><span class="glyphicon glyphicon-stats">&nbsp;</span>Statistiques</a></li>
                         <li class="dropdown">
                              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Ajouter un chauffeur &nbsp;<span class="glyphicon glyphicon-plus"></span></a>
-                            <div class="dropdown-menu" id="add-driver-dropdown">
+                            <div class="dropdown-menu add-driver-dropdown">
                                 <form class="form" role="form" method="post" action="add-driver.php" accept-charset="UTF-8" id="login-nav">
                                     <div class="form-group">
                                         <label class="sr-only" for="exampleInputEmail2">Nom</label>

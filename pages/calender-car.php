@@ -116,7 +116,20 @@ if(isset($_SESSION['login']))
                 </div>
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                        <li><a href="./calender.php"><span class="glyphicon glyphicon-th-list">&nbsp;</span>Planning chauffeurs</a></li>
+                        <?php
+                        if($_SESSION['login'] == 'admin')
+                        {
+                        ?>
+                            <li><a href="./calender.php"><span class="glyphicon glyphicon-th-list">&nbsp;</span>Planning chauffeurs</a></li>
+                        <?php
+                        }
+                        else
+                        {
+                            ?>
+                            <li><a href="./calender-driver.php"><span class="glyphicon glyphicon-th-list">&nbsp;</span>Planning chauffeurs</a></li>
+                            <?php
+                        }
+                        ?>
                         <li><a href="./list-car.php"><span class="glyphicon glyphicon-road">&nbsp;</span>Liste véhicules</a></li>
                         <li class="active"><a href="#"><span class="glyphicon glyphicon-calendar">&nbsp;</span>Planning véhicules</a></li>
                     </ul>
@@ -127,11 +140,16 @@ if(isset($_SESSION['login']))
                     {
                     ?>
                         <ul class="nav navbar-nav navbar-right">
+                            <!--Copie planning sur next day-->
+                            <?php
+                            echo '<li><a href="./calender-car-copy.php?date='.$tabDate[0]['datDate'].'"><span class="glyphicon glyphicon-copy">&nbsp;</span>Copier planning sur jour suivant</a></li>'
+                            ?>
+
                             <li class="dropdown">
                                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Ajouter un statut &nbsp;<span class="glyphicon glyphicon-plus"></span></a>
-                                <div class="dropdown-menu" id="add-driver-dropdown">
+                                <div class="dropdown-menu add-driver-dropdown">
 
-                                    <form class="form" method="post" action="add-statu.php" id="login-nav">
+                                    <form class="form" method="post" action="add-statu.php">
 
                                         <div class="form-group">
                                             <input type="text" name="staName" placeholder="Nom du statut" class="form-control">
@@ -157,8 +175,8 @@ if(isset($_SESSION['login']))
                             </li>
                             <li class="dropdown">
                                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Ajout rapide &nbsp;<span class="glyphicon glyphicon-plus"></span></a>
-                                <div class="dropdown-menu" id="add-driver-dropdown">
-                                    <form class="form" role="form" method="post" action="fast-add-statu.php" accept-charset="UTF-8" id="login-nav">
+                                <div class="dropdown-menu add-driver-dropdown">
+                                    <form class="form" role="form" method="post" action="fast-add-statu.php" accept-charset="UTF-8">
                                         <?php
                                         echo '<input type="hidden" id="selectedDate" name="selectedDate" value="'.$tabDate[0]['datDate'].'">';
                                         ?>

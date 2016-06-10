@@ -1071,6 +1071,44 @@ class dbAcces
 		return $arrayCount;
 	}
 
+	//FUNCTION HEADER
+    // <summary>
+    // Function to copy the calender of one day to the next
+    // </summary>
+    //<var name=date>Date of the day to copy</var>
+	public function copyCarPlanning($date)
+	{
+		//Var vor the loop
+		$dateStat = strtotime($date.' 04:30:00');
+		$dateVar = strtotime($date.' 04:30:00');
+
+		while($dateVar <= ($dateStat + ((23*3600) + 1800)))
+		{
+			//Select current planning
+			$reqGetPlanning = $this->db->prepare('SELECT fkCar, fkStatu FROM t_carcalender WHERE calDate = "'.date('Y-m-d H:i',$dateVar).'"');
+			$reqGetPlanning->execute();
+			$tabCurrentPlanning = $reqGetPlanning->fetchAll();
+			$reqGetPlanning->closeCursor();
+
+
+			//Req to delete all info of next day
+			$reqDelPlanning = $this->db->prepare('DELETE FROM t_carcalender WHERE calDate ="'.date('Y-m-d H:i',($dateVar + 24*3600)).'"');
+			$reqDelPlanning->execute();
+			$reqDelPlanning->closeCursor();
+
+			foreach($tabCurrentPlanning as $planning)
+			{
+				//Insert all info to next day
+				$reqCopyPlanning = $this->db->prepare('INSERT INTO t_carcalender (idCarCalender, calDate, fkCar, fkStatu) VALUES(NULL, "'.date('Y-m-d H:i',($dateVar + 24*3600)).'", '.$planning['fkCar'].', '.$planning['fkStatu'].')');
+				$reqCopyPlanning->execute();
+				$reqCopyPlanning->closeCursor();
+			}
+
+			//Increment datVar value (+ 1/2 hour)
+            $dateVar += 1800;
+		}
+	}
+
 }
 
 ?>
