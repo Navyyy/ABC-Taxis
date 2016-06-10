@@ -236,6 +236,11 @@ function loadChart()
 	google.charts.load('visualization', '1', {'packages':['corechart','table']});
 }
 
+function listCarRedirection(idCar)
+{
+	document.location.href="detail-car-mobile.php?idCar=" + idCar
+}
+
 
 /*Global var
 var matchRegistration = false

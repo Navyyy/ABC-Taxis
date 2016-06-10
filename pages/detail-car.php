@@ -430,7 +430,10 @@ if(isset($_SESSION['login']))
 
                             <?php
                             //Hidden input with the id of the car
-                            echo '<input name="idCar" type="hidden" value="'.$_GET['idCar'].'">'
+                            echo '<input name="idCar" type="hidden" value="'.$_GET['idCar'].'">';
+
+                            //Hidden input with info if it's mobile version or not
+                            echo '<input name="version" type="hidden" value="ordinateur">';
                             ?>
 
                             <div class="form-group">

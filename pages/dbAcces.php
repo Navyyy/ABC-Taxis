@@ -632,7 +632,7 @@ class dbAcces
     // <return>Return a tab of the cars</return>
 	public function getAllCar()
 	{
-		$reqCar = $this->db->query('SELECT idCar, carRegistration, carBrand, carSeats FROM t_car WHERE carDeleted = "n"');
+		$reqCar = $this->db->query('SELECT idCar, carRegistration, carBrand, carSeats FROM t_car WHERE carDeleted = "n" ORDER BY carRegistration');
 
 		$tabCar = $reqCar->fetchAll();
 

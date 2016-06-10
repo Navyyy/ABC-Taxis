@@ -10,12 +10,22 @@ body{
     text-align:center;
 }
 
-table{
-	border-collapse:collapse;
-	width:100%;
+.color-red{
+	color:red;
 }
 
-th,td{
+.tab-list-driver{
+	border-collapse:collapse;
+	width:100%;
+	text-align:center;
+}
+
+.tab-list-driver th{
+	border:1px solid #333;
+	text-align:center;
+}
+
+.tab-list-driver td{
 	border:1px solid #333;
 	text-align:center;
 }
@@ -29,6 +39,18 @@ th,td{
 #body-mobile{
 	width:320px;
 	margin:0 auto;
+}
+
+.align-left{
+	text-align:left;
+}
+
+.align-center{
+	text-align:center;
+}
+
+.panel-detail{
+	padding:3px;
 }
 
 .a-yellow{
@@ -88,4 +110,12 @@ th,td{
 .separator{
 	background-color:#00A0E0;
 	height:10px; 	
+}
+
+.pointer-hover{
+	cursor:pointer;
+}
+
+.navbar{
+	text-align:left;
 }

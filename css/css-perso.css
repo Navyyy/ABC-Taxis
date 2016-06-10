@@ -327,7 +327,6 @@ table{
 	padding:15px;
 }
 
-
 @keyframes turn{
 	0%{
 		transform: rotate(0deg);

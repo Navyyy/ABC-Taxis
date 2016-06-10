@@ -23,5 +23,12 @@ if(isset($_SESSION['login']))
 		$function->addNote($_POST['idCar'], $_POST['note'], $_POST['name']);
 	}
     
-  	header('Location: detail-car.php?idCar='.$_POST['idCar']);      
+    if($_POST['version'] == 'ordinateur')
+    {
+  		header('Location: detail-car.php?idCar='.$_POST['idCar']); 
+  	}
+  	elseif($_POST['version'] == 'mobile')
+  	{
+  		header('Location: detail-car-mobile.php?idCar='.$_POST['idCar']); 
+  	}  
 }

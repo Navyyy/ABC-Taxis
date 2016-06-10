@@ -45,6 +45,30 @@ if(isset($_SESSION['login']) AND $_SESSION['login'] == 'driver')
         <body>
             <div id="body-mobile">
                 <a href="www.abctaxis.ch"><img src="./../pictures/logo-abc.png" alt="logo ABC Taxi"/></a>
+
+                <p></p>
+
+                <!--____________________NAVBAR__________________________-->
+                <nav class="navbar navbar-inverse" role="navigation">
+                    <!--Button for responsive design-->
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                    </div>
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav">
+                            <li class="active"><a href="./calender-driver-mobile.php"><span class="glyphicon glyphicon-th-list">&nbsp;</span>Planning chauffeurs</a></li>
+                            <li><a href="./list-car-mobile.php"><span class="glyphicon glyphicon-road">&nbsp;</span>Liste véhicules</a></li>
+                            <li><a href="./calender-car-mobile"><span class="glyphicon glyphicon-calendar">&nbsp;</span>Planning véhicules</a></li>
+                        </ul>
+                    </div>
+                </nav>
+            <!--____________________/NAVBAR__________________________-->
+
                 <div class="date-select">
                     <form action="date.php" method="post">
                         <?php
@@ -62,7 +86,7 @@ if(isset($_SESSION['login']) AND $_SESSION['login'] == 'driver')
                     
                         echo '<h4>'.$function->convertMonth($selectedMonth).' '.$selectedYear.'</h4>';
                         ?>
-                        <table>
+                        <table class="tab-list-driver">
                             <?php
 
                             echo '<tr><th>Jour</th><th>Tâche</th></tr>';
