@@ -241,6 +241,7 @@ function listCarRedirection(idCar)
 	document.location.href="detail-car-mobile.php?idCar=" + idCar
 }
 
+//Function to show or hide the legend
 function showLegend()
 {
 	var div = document.getElementById('div-legend');

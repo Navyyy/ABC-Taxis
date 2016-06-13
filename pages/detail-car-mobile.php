@@ -186,6 +186,7 @@ if(isset($_SESSION['login']) AND $_SESSION['login'] == 'driver')
                 <!--__________Notes_________-->
 
                 <div class="panel panel-detail align-left">
+                    <legend class="align-center"><h3>Liste des remarques</h3></legend>
 
                     <!--Table that print notes-->
                     <table class="table">
