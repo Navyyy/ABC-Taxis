@@ -41,6 +41,24 @@ body{
 	margin:0 auto;
 }
 
+.show-legend{
+	font-size:20px;
+}
+
+.show-legend:hover{
+	cursor:pointer;
+}
+
+.div-legend{
+	display:none;
+}
+
+.span-statu{
+	padding:4px;
+	border:1px solid black;
+	border-radius:5px;
+}
+
 .align-left{
 	text-align:left;
 }

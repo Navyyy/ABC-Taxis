@@ -241,6 +241,23 @@ function listCarRedirection(idCar)
 	document.location.href="detail-car-mobile.php?idCar=" + idCar
 }
 
+function showLegend()
+{
+	var div = document.getElementById('div-legend');
+	var link = document.getElementById('showLegend');
+
+	if(div.style.display == "none" ||div.style.display == "")
+	{
+		link.text = "Masquer la légende";
+		div.style.display = "block";
+	}
+	else if(div.style.display == "block")
+	{
+		link.text = "Afficher la légende";
+		div.style.display = "none";
+	}
+}
+
 
 /*Global var
 var matchRegistration = false

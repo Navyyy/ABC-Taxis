@@ -70,7 +70,7 @@ if(isset($_SESSION['login']) AND $_SESSION['login'] == 'driver')
                         <ul class="nav navbar-nav">
                             <li><a href="./calender-driver-mobile.php"><span class="glyphicon glyphicon-th-list">&nbsp;</span>Planning chauffeurs</a></li>
                             <li><a href="./list-car-mobile.php"><span class="glyphicon glyphicon-road">&nbsp;</span>Liste véhicules</a></li>
-                            <li><a href="./calender-car-mobile"><span class="glyphicon glyphicon-calendar">&nbsp;</span>Planning véhicules</a></li>
+                            <li><a href="./calender-car-mobile.php"><span class="glyphicon glyphicon-calendar">&nbsp;</span>Planning véhicules</a></li>
                         </ul>
                     </div>
                 </nav>

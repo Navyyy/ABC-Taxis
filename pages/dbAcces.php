@@ -1109,6 +1109,23 @@ class dbAcces
 		}
 	}
 
+	//FUNCTION HEADER
+    // <summary>
+    // Function to get the driver registration from its id
+    // </summary>
+    //<var name=idCar>Id of the car</var>
+    //<return>Return the registration of the car</return>
+	function getCarFromId($idCar)
+	{
+		$reqCar = $this->db->prepare('SELECT carRegistration FROM t_car WHERE idCar = :idCar');
+		$reqCar->execute(array(
+			'idCar' => $idCar
+			));
+		$tabCar = $reqCar->fetchAll();
+		$reqCar->closeCursor();
+		return $tabCar;
+	}
+
 }
 
 ?>

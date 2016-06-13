@@ -60,7 +60,7 @@ if(isset($_SESSION['login']))
             <!-- Bootstrap Date-Picker Plugin -->
             <script type="text/javascript" src="../js/bootstrap-datepicker.min.js"></script>
             <link rel="stylesheet" href="../css/bootstrap-datepicker3.css"/>
-            <!--______7Link fo datePicker_____-->
+            <!--______/Link fo datePicker_____-->
 
 
             <link rel="icon" href="http://www.abctaxis.ch/favicon.png">
