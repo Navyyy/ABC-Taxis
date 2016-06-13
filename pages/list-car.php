@@ -40,7 +40,7 @@ if(isset($_SESSION['login']))
         </head>
 
         <body>
-            <a href="www.abctaxis.ch"><img src="./../pictures/logo-abc.png" alt="logo ABC Taxi"/></a>
+            <a href="http://www.abctaxis.ch"><img src="./../pictures/logo-abc.png" alt="logo ABC Taxi"/></a>
             <p></p>
 
             <!--____________________NAVBAR__________________________-->

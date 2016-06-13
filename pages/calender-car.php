@@ -65,11 +65,11 @@ if(isset($_SESSION['login']))
 
             <link rel="icon" href="http://www.abctaxis.ch/favicon.png">
 
-            <title>Planning chauffeurs | ABC Taxis Cochet SA</title>
+            <title>Planning véhicules | ABC Taxis Cochet SA</title>
         </head>
 
         <body id="body-anim-in">
-            <a href="www.abctaxis.ch"><img src="./../pictures/logo-abc.png" alt="logo ABC Taxi"/></a>
+            <a href="http://www.abctaxis.ch"><img src="./../pictures/logo-abc.png" alt="logo ABC Taxi"/></a>
 
             <!--______Div with datePicker_____-->
             <div class="panel panel-car-planning">

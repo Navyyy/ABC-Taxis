@@ -39,7 +39,7 @@ if(isset($_SESSION['login']) AND $_SESSION['login'] == 'driver')
 
         <body class="body-mobile">
             <div id="body-mobile">
-                <a href="www.abctaxis.ch"><img src="./../pictures/logo-abc.png" alt="logo ABC Taxi"/></a>
+                <a href="http://www.abctaxis.ch"><img src="./../pictures/logo-abc.png" alt="logo ABC Taxi"/></a>
 
                 <p></p>
 

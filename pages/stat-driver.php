@@ -41,11 +41,11 @@ if(isset($_SESSION['login']) AND $_SESSION['login'] == 'admin')
 
             <link rel="icon" href="http://www.abctaxis.ch/favicon.png">
 
-            <title>Planning chauffeurs | ABC Taxis Cochet SA</title>
+            <title>Statistiques chauffeurs | ABC Taxis Cochet SA</title>
         </head>
 
         <body id="body-anim-in" onload="loadChart()">
-            <a href="www.abctaxis.ch"><img src="./../pictures/logo-abc.png" alt="logo ABC Taxi"/></a>
+            <a href="http://www.abctaxis.ch"><img src="./../pictures/logo-abc.png" alt="logo ABC Taxi"/></a>
             <p></p>
 
             <!--____________________NAVBAR__________________________-->

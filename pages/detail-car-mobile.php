@@ -46,12 +46,12 @@ if(isset($_SESSION['login']) AND $_SESSION['login'] == 'driver')
 
             <link rel="icon" href="http://www.abctaxis.ch/favicon.png">
 
-            <title>Liste des véhicules | ABC Taxis Cochet SA</title>
+            <title>Détail du véhicules | ABC Taxis Cochet SA</title>
         </head>
 
         <body class="body-mobile">
             <div id="body-mobile">
-                <a href="www.abctaxis.ch"><img src="./../pictures/logo-abc.png" alt="logo ABC Taxi"/></a>
+                <a href="http://www.abctaxis.ch"><img src="./../pictures/logo-abc.png" alt="logo ABC Taxi"/></a>
 
                 <p></p>
 

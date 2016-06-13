@@ -43,7 +43,7 @@ if(isset($_SESSION['login']) AND $_SESSION['login'] == 'admin')
         </head>
 
         <body id="body-anim-in">
-            <a href="www.abctaxis.ch"><img src="./../pictures/logo-abc.png" alt="logo ABC Taxi"/></a>
+            <a href="http://www.abctaxis.ch"><img src="./../pictures/logo-abc.png" alt="logo ABC Taxi"/></a>
             <div class="date-select">
                 <form action="date.php" method="post">
                     <?php
