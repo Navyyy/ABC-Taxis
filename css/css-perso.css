@@ -82,6 +82,24 @@ table{
 	margin-top:-50px;
 }
 
+#keywords thead {
+  cursor: pointer;
+  background-color: rgba(216, 216, 216, 0.5);
+}
+
+#keywords .glyphicon-chevron-up {
+  display:none;
+}
+
+#keywords thead tr th.headerSortUp .glyphicon-chevron-up {
+	display:inline-block;
+	transform: rotate(0deg);
+}
+#keywords thead tr th.headerSortDown .glyphicon-chevron-up {
+  	display:inline-block;
+	transform: rotate(180deg);
+}
+
 
 /*CLASS*/
 
@@ -310,7 +328,6 @@ table{
 
 .span-statu{
 	padding:4px;
-	border:1px solid black;
 	border-radius:5px;
 }
 

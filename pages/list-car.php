@@ -30,9 +30,11 @@ if(isset($_SESSION['login']))
             <link href="../css/css-perso.css" rel="stylesheet">
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0">
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+            <script src="../jquery-1.11.3.min.js"></script>
             <script src="../js/bootstrap.min.js"></script>
             <script src="../js/js-perso.js"></script>
+            <script src="../js/jquery.tablesorter.min.js"></script>
 
             <link rel="icon" href="http://www.abctaxis.ch/favicon.png">
 
@@ -152,15 +154,15 @@ if(isset($_SESSION['login']))
             <!--____________________Car list_________________________-->
             <div class="panel panel-default">
 
-                <table id="sort-table" class="table table-hover table-condensed">
+                <table id="keywords" class="table table-hover table-condensed">
                     <thead class="floating-header">
                         <tr>
-                            <th class="th-head-list-car">Immatriculation</th>
-                            <th class="th-head-list-car">Marque</th>
-                            <th class="th-head-list-car">Sièges</th>
-                            <th class="th-head-list-car">Classe</th>
-                            <th class="th-head-list-car">Info</th>
-                            <th class="th-head-list-car">Actions</td>
+                            <th class="th-head-list-car">Immatriculation &nbsp;<span class="glyphicon glyphicon-chevron-up"></span></th>
+                            <th class="th-head-list-car">Marque <span class="glyphicon glyphicon-chevron-up"></span></th>
+                            <th class="th-head-list-car">Sièges <span class="glyphicon glyphicon-chevron-up"></span></th>
+                            <th class="th-head-list-car">Classe <span class="glyphicon glyphicon-chevron-up"></span></th>
+                            <th class="th-head-list-car">Info <span class="glyphicon glyphicon-chevron-up"></span></th>
+                            <th class="th-head-list-car">Actions <span class="glyphicon glyphicon-chevron-up"></span></td>
                         </tr>
                     </thead>
                     <tbody class="floating-body">
@@ -265,6 +267,13 @@ if(isset($_SESSION['login']))
                     </tbody>
                 </table>
             </div>
+
+            <!--Script to sort the table-->
+            <script type="text/javascript">
+                $(function(){
+                  $('#keywords').tablesorter(); 
+                });
+            </script>
 
             <!--____________________/Car list_________________________-->
 
